@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Input from "./input";
 import Joi from "joi-browser";
-import Axios from "axios";
-import config from "../../config.json";
 
 export class Form extends Component {
   state = {

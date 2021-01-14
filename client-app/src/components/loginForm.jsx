@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "./utils/form";
 import Joi from "joi-browser";
+import authService from "../services/authService";
 
 class LoginForm extends Form {
   state = {
@@ -16,10 +17,11 @@ class LoginForm extends Form {
     password: Joi.string().min(6).required(),
   };
 
-  doSubmit = () => {
-    console.log(this.state.data);
+  doSubmit = async () => {
+    const { username, password } = this.state.data;
+    await authService.login({ username, password });
+    window.location = "/";
   };
-
   render() {
     return (
       <React.Fragment>

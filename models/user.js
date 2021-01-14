@@ -4,22 +4,34 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 const userSchema = new mongoose.Schema({
-  email: {
+  firstname: {
     type: String,
-    minlength: 4,
-    maxlength: 100,
+    minlength: 2,
+    maxlength: 50,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    minlength: 2,
+    maxlength: 50,
     required: true,
   },
   username: {
     type: String,
+    minlength: 2,
+    maxlength: 50,
+    required: true,
+  },
+  email: {
+    type: String,
     minlength: 4,
-    maxlength: 100,
+    maxlength: 50,
     required: true,
   },
   password: {
     type: String,
     minlength: 6,
-    maxlength: 100,
+    maxlength: 256,
     required: true,
   },
   isAdmin: {
@@ -31,7 +43,13 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateAuthToken = function () {
   return jwt.sign(
-    { _id: this._id, isAdmin: this.isAdmin },
+    {
+      _id: this._id,
+      username: this.username,
+      firstname: this.firstname,
+      lastname: this.lastname,
+      isAdmin: this.isAdmin,
+    },
     config.get("jwtPrivateKey")
   );
 };
@@ -40,10 +58,13 @@ const User = mongoose.model("user", userSchema);
 
 const validateUser = (body) => {
   const user = joi.object({
-    email: joi.string().min(4).max(100).required().email(),
-    username: joi.string().min(4).max(100).required(),
-    password: joi.string().min(6).max(100).required(),
+    firstname: joi.string().min(2).max(50).required(),
+    lastname: joi.string().min(2).max(50).required(),
+    username: joi.string().min(2).max(50).required(),
+    email: joi.string().min(4).max(50).required().email(),
+    password: joi.string().min(6).max(50).required(),
   });
+
   return user.validate(body);
 };
 

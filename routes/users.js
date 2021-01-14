@@ -35,24 +35,27 @@ router.post("/login", async (req, res) => {
   res.send({ token: user.generateAuthToken() });
 });
 
-router.post("/signup", async (req, res) => {
+router.post("/register", async (req, res) => {
   const { error } = validateUser(req.body);
   if (error) return res.status(400).send(error.message);
 
-  const { username, password, email } = req.body;
+  const { firstname, lastname, username, password, email } = req.body;
 
   if (await User.findOne({ username }))
     return res.status(401).send("The user with this username exists.");
 
   const hashedPassword = await bcrypt.hash(password, await bcrypt.genSalt(10));
   const user = await new User({
+    firstname,
+    lastname,
     username,
     password: hashedPassword,
     email,
   }).save();
 
   res
-    .header({ "x-auth-token": user.generateAuthToken() })
+    .header("x-auth-token", user.generateAuthToken())
+    .header("access-control-expose-headers", "x-auth-token")
     .send({ username, email });
 });
 

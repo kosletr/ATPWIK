@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "./utils/form";
 import Joi from "joi-browser";
+import authService from "../services/authService";
 
 class RegisterForm extends Form {
   state = {
@@ -10,26 +11,53 @@ class RegisterForm extends Form {
       username: "",
       email: "",
       password: "",
-      repeatPassword: "",
+      confirmPassword: "",
     },
     errors: {},
   };
 
   schema = {
-    firstname: Joi.string().required().label("Firstname"),
-    lastname: Joi.string().required().label("Lastname"),
-    username: Joi.string().required().label("Username"),
+    firstname: Joi.string().min(2).max(30).required().label("Firstname"),
+    lastname: Joi.string().min(2).max(30).required().label("Lastname"),
+    username: Joi.string().min(2).max(30).required().label("Username"),
     email: Joi.string().email().required().label("E-mail"),
-    password: Joi.string().min(6).required().label("Password"),
-    repeatPassword: Joi.string()
+    password: Joi.string().min(6).max(30).required().label("Password"),
+    confirmPassword: Joi.string()
+      .min(6)
+      .max(30)
       .valid(Joi.ref("password"))
       .required()
       .options({ language: { any: { allowOnly: "must match password" } } })
       .label("Confirm password"),
   };
 
-  doSubmit = () => {
-    console.log(this.state.data);
+  doSubmit = async () => {
+    try {
+      const {
+        firstname,
+        lastname,
+        username,
+        password,
+        email,
+      } = this.state.data;
+
+      const response = await authService.register({
+        firstname,
+        lastname,
+        username,
+        password,
+        email,
+      });
+
+      authService.setJWT(response.headers["x-auth-token"]);
+      window.location = "/";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors["username"] = ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
@@ -49,6 +77,7 @@ class RegisterForm extends Form {
               {this.renderInput("firstname", "Firstname", "Enter Firstname")}
               {this.renderInput("lastname", "Lastname", "Enter Lastname")}
               {this.renderInput("username", "Username", "Enter Username")}
+              {this.renderInput("email", "E-mail", "Enter E-mail", "email")}
               {this.renderInput(
                 "password",
                 "Password",
@@ -56,12 +85,11 @@ class RegisterForm extends Form {
                 "password"
               )}
               {this.renderInput(
-                "repeatPassword",
+                "confirmPassword",
                 "Confirm Password",
                 "Re-enter Password",
                 "password"
               )}
-              {this.renderInput("email", "E-mail", "Enter E-mail", "email")}
               {this.renderButton("Register")}
             </form>
           </div>
