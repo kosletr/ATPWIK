@@ -55,11 +55,10 @@
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: 2;
+    z-index: 5;
     display: block;
     padding: 20px;
-    padding-top: 100px;
-    padding-right: 70px;
+    padding-top: 80px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #f8f9fa;
@@ -69,13 +68,19 @@
 
 /* Sidebar navigation */
 .nav-sidebar {
+  position: static;
   margin-right: -21px; /* 20px padding + 1px border */
   margin-bottom: 20px;
   margin-left: -20px;
 }
+
+.nav-sidebar > li {
+  width: 100%;
+}
+
 .nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
+  text-align: center;
+  padding-left: 10px;
 }
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,

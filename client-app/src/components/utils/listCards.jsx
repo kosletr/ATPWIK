@@ -7,16 +7,20 @@ export class ListCards extends Component {
     if (!data || data.length === 0) return null;
 
     return (
-      <ul className="list-group list-group-horizontal align-items-stretch flex-wrap">
+      <ol className="list-group list-group-horizontal align-items-stretch flex-wrap">
         {data.map((entry) => {
           const properties = _.pick(entry, cardDetails);
           return (
-            <div className="list-group-item border-0" key={data.indexOf(entry)}>
+            <div
+              style={{ overflow: "hidden" }}
+              className="list-group-item border-0"
+              key={data.indexOf(entry)}
+            >
               <Component {...properties} {...extraProps} />
             </div>
           );
         })}
-      </ul>
+      </ol>
     );
   }
 }

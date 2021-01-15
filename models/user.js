@@ -39,6 +39,24 @@ const userSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  createdProducts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "product",
+    },
+  ],
+  likedProducts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "product",
+    },
+  ],
+  cartProducts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "product",
+    },
+  ],
 });
 
 userSchema.methods.generateAuthToken = function () {

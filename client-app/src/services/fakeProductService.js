@@ -1,7 +1,7 @@
 const products = [
   {
     id: "1",
-    category: "cars",
+    category: { _id: "5b21ca3eeb7f6fbccd471818", name: "Cars" },
     title: "Red Porsche1",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
@@ -12,7 +12,7 @@ const products = [
   },
   {
     id: "2",
-    category: "cars",
+    category: { _id: "5b21ca3eeb7f6fbccd471818", name: "Cars" },
     title: "Blue Porsche2",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
@@ -23,8 +23,8 @@ const products = [
   },
   {
     id: "3",
-    category: "cars",
-    title: "Green ball3",
+    category: { _id: "5b21ca3eeb7f6fbccd471814", name: "Phones" },
+    title: "iphone1",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
     imageURL:
@@ -34,7 +34,7 @@ const products = [
   },
   {
     id: "4",
-    category: "cars",
+    category: { _id: "5b21ca3eeb7f6fbccd471814", name: "Phones" },
     title: "Black Phone",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
@@ -45,7 +45,7 @@ const products = [
   },
   {
     id: "5",
-    category: "cars",
+    category: { _id: "5b21ca3eeb7f6fbccd471814", name: "Phones" },
     title: "Iphone 12",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
@@ -56,8 +56,8 @@ const products = [
   },
   {
     id: "6",
-    category: "cars",
-    title: "Blue something6",
+    category: { _id: "5b21ca3eeb7f6fbccd471814", name: "Phones" },
+    title: "Blue phone",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
     imageURL:
@@ -67,8 +67,8 @@ const products = [
   },
   {
     id: "7",
-    category: "cars",
-    title: "Blue somethingelese7",
+    category: { _id: "5b21ca3eeb7f6fbccd471814", name: "Phones" },
+    title: "Blue iphone2",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
     imageURL:
@@ -78,8 +78,8 @@ const products = [
   },
   {
     id: "8",
-    category: "cars",
-    title: "test8",
+    category: { _id: "5b21ca3eeb7f6fbccd471814", name: "Phones" },
+    title: "iphone9",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
     imageURL:
@@ -89,8 +89,8 @@ const products = [
   },
   {
     id: "9",
-    category: "cars",
-    title: "etc Porsche6",
+    category: { _id: "5b21ca3eeb7f6fbccd471814", name: "Phones" },
+    title: "iphonetest",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
     imageURL:
@@ -100,8 +100,8 @@ const products = [
   },
   {
     id: "10",
-    category: "cars",
-    title: "Blue Porsche6",
+    category: { _id: "5b21ca3eeb7f6fbccd471818", name: "Cars" },
+    title: "green ferarri",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
     imageURL:
@@ -111,8 +111,8 @@ const products = [
   },
   {
     id: "11",
-    category: "cars",
-    title: "is Bond11",
+    category: { _id: "5b21ca3eeb7f6fbccd471818", name: "Cars" },
+    title: "is JBondsCar",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
     imageURL:
@@ -122,8 +122,8 @@ const products = [
   },
   {
     id: "12",
-    category: "cars",
-    title: "my name",
+    category: { _id: "5b21ca3eeb7f6fbccd471820", name: "Other" },
+    title: "randomNames",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
     imageURL:
@@ -133,7 +133,7 @@ const products = [
   },
   {
     id: "13",
-    category: "cars",
+    category: { _id: "5b21ca3eeb7f6fbccd471820", name: "Other" },
     title: "who are you",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
@@ -144,7 +144,7 @@ const products = [
   },
   {
     id: "14",
-    category: "cars",
+    category: { _id: "5b21ca3eeb7f6fbccd471820", name: "Other" },
     title: "randmon title",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
@@ -155,7 +155,7 @@ const products = [
   },
   {
     id: "15",
-    category: "cars",
+    category: { _id: "5b21ca3eeb7f6fbccd471820", name: "Other" },
     title: "Blue hello world",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
@@ -166,8 +166,8 @@ const products = [
   },
   {
     id: "16",
-    category: "cars",
-    title: "random Porsche16",
+    category: { _id: "5b21ca3eeb7f6fbccd471820", name: "Other" },
+    title: "random other",
     price: "2000euros",
     shortDesc: "This is a very nice car.",
     imageURL:

@@ -1,3 +1,4 @@
 {
-  "jwtPrivateKey": "secretKey"
+  "jwtPrivateKey": "secretKey",
+  "MongoURI": "mongodb://localhost:27017/testApp"
 }

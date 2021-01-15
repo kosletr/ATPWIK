@@ -1,23 +1,29 @@
 import React, { Component } from "react";
-import ListCards from "./utils/listCards";
-import { getProducts } from "../services/fakeProductService";
 import Sidebar from "./sidebar";
 import Card from "./utils/card";
+import ListCards from "./utils/listCards";
+import SearchBox2 from "./utils/searchBox";
 import Pagination from "./utils/pagination";
 import { paginate } from "./utils/paginate";
-import SearchBox from "./utils/searchBox";
+import { getProducts } from "../services/fakeProductService";
+import { getCategories } from "../services/fakeCategoryService";
 
 export class Products extends Component {
   state = {
     products: [],
+    categories: [],
     currentPage: 1,
     pageSize: 12,
     searchQuery: "",
+    selectedCategory: null,
   };
 
   componentDidMount() {
+    let categories = getCategories();
+    categories = [{ _id: "", name: "All Categories" }, ...categories];
+
     const products = getProducts();
-    this.setState({ products });
+    this.setState({ products, categories });
   }
 
   handleLike = ({ currentTarget: input }) => {
@@ -32,6 +38,14 @@ export class Products extends Component {
     this.setState({ currentPage: page });
   };
 
+  handleCategorySelect = (category) => {
+    this.setState({
+      selectedCategory: category,
+      searchQuery: "",
+      currentPage: 1,
+    });
+  };
+
   handleSearch = (query) => {
     this.setState({ searchQuery: query, currentPage: 1 });
   };
@@ -40,19 +54,28 @@ export class Products extends Component {
     const {
       pageSize,
       currentPage,
+      selectedCategory,
       searchQuery,
       products: allProducts,
     } = this.state;
 
+    let searchList = [];
     let filtered = allProducts;
-    if (searchQuery)
-      filtered = allProducts.filter((m) =>
+    if (selectedCategory && selectedCategory._id)
+      filtered = allProducts.filter(
+        (m) => m.category._id === selectedCategory._id
+      );
+
+    if (searchQuery) {
+      filtered = filtered.filter((m) =>
         m.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
+      searchList = filtered.slice(0, 5);
+    }
 
     const products = paginate(filtered, currentPage, pageSize);
 
-    return { totalCount: filtered.length, data: products };
+    return { totalCount: filtered.length, data: products, searchList };
   };
 
   render() {
@@ -61,21 +84,28 @@ export class Products extends Component {
 
     if (count === 0) return <p>There are no movies in the database.</p>;
 
-    const { totalCount, data: products } = this.getPagedData();
+    const { totalCount, data: products, searchList } = this.getPagedData();
 
     return (
       <React.Fragment>
         <div className="col-3">
-          <Sidebar />
+          <Sidebar
+            items={this.state.categories}
+            selectedItem={this.state.selectedCategory}
+            onItemSelect={this.handleCategorySelect}
+          />
         </div>
 
         <div className="col main">
           <div className="row">
-            <div className="col-sm-3" />
+            <div className="col-sm-5" />
             <div className="col-sm">
-              <SearchBox value={searchQuery} onChange={this.handleSearch} />
+              <SearchBox2
+                value={searchQuery}
+                onChange={this.handleSearch}
+                items={searchList}
+              />
             </div>
-            <div className="col-sm-3" />
           </div>
 
           <div className="row">
