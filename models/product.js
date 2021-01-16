@@ -1,4 +1,4 @@
-const joi = require("joi");
+const Joi = require("joi");
 const mongoose = require("mongoose");
 
 const Product = mongoose.model(
@@ -10,11 +10,11 @@ const Product = mongoose.model(
       minlength: 1,
       maxlength: 20,
     },
-    ownerId: {
+    owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
     },
-    categoryId: {
+    category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "category",
     },
@@ -45,24 +45,15 @@ const Product = mongoose.model(
 );
 
 const validateProduct = (body) => {
-  const schema = joi.object({
-    title: joi.string().min(1).max(20).required(),
-    ownerId: joi.objectId(),
-    categoryId: joi.objectId().required(),
-    price: joi.number().min(0).precision(2).required(),
-    shortDesc: joi.string().min(20).max(100).required(),
-    description: joi.string().min(20).max(1000).required(),
-    imageURL: joi.string().min(10).max(1000).required().uri(),
+  const schema = Joi.object({
+    title: Joi.string().min(1).max(20).required(),
+    category: Joi.objectId().required(),
+    price: Joi.number().min(0).precision(2).required(),
+    shortDesc: Joi.string().min(20).max(100).required(),
+    description: Joi.string().min(20).max(1000).required(),
+    imageURL: Joi.string().min(10).max(1000).required().uri(),
   });
   return schema.validate(body);
 };
 
-const validateProductId = (body) => {
-  const productId = joi.object({
-    productId: joi.objectId().required(),
-  });
-
-  return productId.validate(body);
-};
-
-module.exports = { Product, validateProduct, validateProductId };
+module.exports = { Product, validateProduct };

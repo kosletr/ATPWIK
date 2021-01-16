@@ -5,6 +5,8 @@ const Joi = require("joi");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
+/* Authentication/Authorization */
+
 const validateCredentials = (body) => {
   const credentials = Joi.object({
     username: Joi.string().min(4).max(20).required(),
@@ -26,11 +28,11 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   let user = await User.findOne({ username });
-  if (!user) return res.status(404).send("Invalid username or password.");
+  if (!user) return res.status(401).send("Invalid username or password.");
 
   const validPassword = await bcrypt.compare(password, user.password);
   if (!validPassword)
-    return res.status(404).send("Invalid username or password.");
+    return res.status(401).send("Invalid username or password.");
 
   res.send({ token: user.generateAuthToken() });
 });
@@ -42,7 +44,7 @@ router.post("/register", async (req, res) => {
   const { firstname, lastname, username, password, email } = req.body;
 
   if (await User.findOne({ username }))
-    return res.status(401).send("The user with this username exists.");
+    return res.status(400).send("The user with this username exists.");
 
   const hashedPassword = await bcrypt.hash(password, await bcrypt.genSalt(10));
   const user = await new User({

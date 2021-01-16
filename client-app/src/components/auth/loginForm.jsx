@@ -1,7 +1,7 @@
 import React from "react";
-import Form from "./utils/form";
+import Form from "../utils/form";
 import Joi from "joi-browser";
-import authService from "../services/authService";
+import authService from "../../services/authService";
 
 class LoginForm extends Form {
   state = {
@@ -13,14 +13,25 @@ class LoginForm extends Form {
   };
 
   schema = {
-    username: Joi.string().required(),
-    password: Joi.string().min(6).required(),
+    username: Joi.string().required().label("Username"),
+    password: Joi.string().min(6).required().label("Password"),
   };
 
   doSubmit = async () => {
-    const { username, password } = this.state.data;
-    await authService.login({ username, password });
-    window.location = "/";
+    try {
+      const { username, password } = this.state.data;
+
+      await authService.login({ username, password });
+
+      const { state } = this.props.location;
+      window.location = state ? state.from.pathname : "/";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 401) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
   render() {
     return (

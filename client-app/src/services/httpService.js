@@ -19,10 +19,12 @@ const addJWTHeader = (jwt) => {
   axios.defaults.headers.common["x-auth-token"] = jwt;
 };
 
-export default {
+const exportObj = {
   get: axios.get,
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
   addJWTHeader,
 };
+
+export default exportObj;

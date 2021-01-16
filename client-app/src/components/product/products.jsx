@@ -1,37 +1,63 @@
 import React, { Component } from "react";
-import Sidebar from "./sidebar";
-import Card from "./utils/card";
-import ListCards from "./utils/listCards";
-import SearchBox2 from "./utils/searchBox";
-import Pagination from "./utils/pagination";
-import { paginate } from "./utils/paginate";
-import { getProducts } from "../services/fakeProductService";
-import { getCategories } from "../services/fakeCategoryService";
+import Sidebar from "../utils/sidebar";
+import Card from "../utils/card";
+import ListCards from "../utils/listCards";
+import SearchBox2 from "../utils/searchBox";
+import Pagination from "../utils/pagination";
+import { paginate } from "../utils/paginate";
+import { getProducts } from "../../services/productService";
+import authService from "../../services/authService";
+import {
+  getLikedProductIds,
+  addLikeToProduct,
+  removeLikeFromProduct,
+} from "../../services/userService";
+import { getCategories } from "../../services/categoryService";
 
 export class Products extends Component {
   state = {
     products: [],
     categories: [],
+    likedProductIds: [],
     currentPage: 1,
     pageSize: 12,
     searchQuery: "",
     selectedCategory: null,
   };
 
-  componentDidMount() {
-    let categories = getCategories();
+  async componentDidMount() {
+    let { data: categories } = await getCategories();
     categories = [{ _id: "", name: "All Categories" }, ...categories];
 
-    const products = getProducts();
-    this.setState({ products, categories });
+    const { data: products } = await getProducts();
+    if (authService.getCurrentUser() == null) {
+      this.setState({ products, categories });
+      return;
+    }
+
+    const { data: likedProductIds } = await getLikedProductIds();
+    this.setState({ products, categories, likedProductIds });
   }
 
-  handleLike = ({ currentTarget: input }) => {
-    let products = [...this.state.products];
-    const index = products.findIndex((p) => p.id === input.id);
-    products[index] = { ...products[index] };
-    products[index].liked = !products[index].liked;
-    this.setState({ products });
+  handleLike = async ({ currentTarget: input }) => {
+    if (authService.getCurrentUser() == null) {
+      this.props.history.push("/login");
+      return;
+    }
+
+    const { data: likedProductIds } = await getLikedProductIds();
+    const productId = input.id;
+
+    if (!likedProductIds.includes(productId)) {
+      likedProductIds.push(productId);
+      await addLikeToProduct(productId);
+    } else {
+      const index = likedProductIds.indexOf(productId);
+      if (index > -1) likedProductIds.splice(index, 1);
+      await removeLikeFromProduct(productId);
+    }
+
+    this.setState({ likedProductIds });
   };
 
   handlePageChange = (page) => {
@@ -80,9 +106,9 @@ export class Products extends Component {
 
   render() {
     const { length: count } = this.state.products;
-    const { pageSize, currentPage, searchQuery } = this.state;
+    const { pageSize, currentPage, searchQuery, likedProductIds } = this.state;
 
-    if (count === 0) return <p>There are no movies in the database.</p>;
+    if (count === 0) return <p>There are no products in the database.</p>;
 
     const { totalCount, data: products, searchList } = this.getPagedData();
 
@@ -127,8 +153,15 @@ export class Products extends Component {
               <ListCards
                 data={products}
                 Component={Card}
-                cardDetails={["id", "title", "shortDesc", "imageURL", "liked"]}
-                extraProps={{ onLike: this.handleLike }}
+                cardDetails={[
+                  "_id",
+                  "title",
+                  "price",
+                  "shortDesc",
+                  "imageURL",
+                  "owner",
+                ]}
+                extraProps={{ onLike: this.handleLike, likedProductIds }}
               />
             </div>
           </div>

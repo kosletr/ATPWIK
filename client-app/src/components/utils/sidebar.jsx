@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import SidebarGroup from "./sidebarGroup";
 
 const Sidebar = ({
@@ -23,19 +24,19 @@ const Sidebar = ({
       <div className="col">
         <ul className="nav nav-sidebar">
           <li>
-            <a href="">Nav</a>
+            <Link to="/">To do</Link>
           </li>
           <li>
-            <a href="">Nav item</a>
+            <Link to="/">To do</Link>
           </li>
           <li>
-            <a href="">One more nav</a>
+            <Link to="/">To do</Link>
           </li>
           <li>
-            <a href="">Another nav item</a>
+            <Link to="/">To do</Link>
           </li>
           <li>
-            <a href="">More navigation</a>
+            <Link to="/">To do</Link>
           </li>
         </ul>
       </div>
