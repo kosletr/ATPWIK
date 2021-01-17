@@ -5,7 +5,7 @@ export default function Navbar({ user }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light ">
       <Link className="navbar-brand" to="/">
-        MyApp
+        Atswik
       </Link>
       <div className="collapse navbar-collapse" id="navbarNav">
         <div className="navbar-nav">

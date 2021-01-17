@@ -28,6 +28,7 @@ app.use("/api/categories", require("./routes/categories"));
 app.use("/api/products", require("./routes/products"));
 app.use("/api/auth", require("./routes/users"));
 app.use("/api/users/likes", require("./routes/userLikes"));
+app.use("/api/users/ratings", require("./routes/userRatings"));
 app.use("/api/users/products", require("./routes/userProducts"));
 
 /* Run server on given port */

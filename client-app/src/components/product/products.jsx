@@ -6,19 +6,21 @@ import SearchBox2 from "../utils/searchBox";
 import Pagination from "../utils/pagination";
 import { paginate } from "../utils/paginate";
 import { getProducts } from "../../services/productService";
+import { getCategories } from "../../services/categoryService";
 import authService from "../../services/authService";
 import {
   getLikedProductIds,
   addLikeToProduct,
   removeLikeFromProduct,
+  getRatedProductIds,
+  addRatingToProduct,
+  removeRatingFromProduct,
 } from "../../services/userService";
-import { getCategories } from "../../services/categoryService";
 
 export class Products extends Component {
   state = {
     products: [],
     categories: [],
-    likedProductIds: [],
     currentPage: 1,
     pageSize: 12,
     searchQuery: "",
@@ -30,13 +32,25 @@ export class Products extends Component {
     categories = [{ _id: "", name: "All Categories" }, ...categories];
 
     const { data: products } = await getProducts();
-    if (authService.getCurrentUser() == null) {
-      this.setState({ products, categories });
-      return;
+
+    if (authService.getCurrentUser() != null) {
+      // Get User's Likes
+      const { data: likedProductIds } = await getLikedProductIds();
+
+      products.forEach((p) => {
+        p.liked = likedProductIds.includes(p._id);
+      });
+
+      // Get User's Ratings
+      const { data: ratings } = await getRatedProductIds();
+
+      ratings.forEach((r) => {
+        let p_index = products.findIndex((p) => p._id === r.productId);
+        if (p_index >= 0) products[p_index].rating = r.rating;
+      });
     }
 
-    const { data: likedProductIds } = await getLikedProductIds();
-    this.setState({ products, categories, likedProductIds });
+    this.setState({ products, categories });
   }
 
   handleLike = async ({ currentTarget: input }) => {
@@ -44,21 +58,50 @@ export class Products extends Component {
       this.props.history.push("/login");
       return;
     }
-
-    const { data: likedProductIds } = await getLikedProductIds();
+    const products = [...this.state.products];
     const productId = input.id;
+    const index = products.findIndex((p) => p._id === productId);
+    products[index] = { ...products[index] };
+    products[index].liked = !products[index].liked;
+    this.setState({ products });
 
-    if (!likedProductIds.includes(productId)) {
-      likedProductIds.push(productId);
-      await addLikeToProduct(productId);
-    } else {
-      const index = likedProductIds.indexOf(productId);
-      if (index > -1) likedProductIds.splice(index, 1);
-      await removeLikeFromProduct(productId);
-    }
-
-    this.setState({ likedProductIds });
+    if (products[index].liked) await addLikeToProduct(productId);
+    else await removeLikeFromProduct(productId);
   };
+
+  /* Rating Component */
+
+  handleSaveRating = async (rating, productId) => {
+    if (authService.getCurrentUser() == null) {
+      this.props.history.push("/login");
+      return;
+    }
+    const products = [...this.state.products];
+    const index = products.findIndex((p) => p._id === productId);
+    products[index] = { ...products[index] };
+
+    products[index].rating = rating;
+    this.setState({ products });
+
+    await addRatingToProduct(productId, rating);
+  };
+
+  handleRemoveRating = async (productId) => {
+    if (authService.getCurrentUser() == null) {
+      this.props.history.push("/login");
+      return;
+    }
+    const products = [...this.state.products];
+    const index = products.findIndex((p) => p._id === productId);
+    products[index] = { ...products[index] };
+
+    products[index].rating = 0;
+    this.setState({ products });
+
+    await removeRatingFromProduct(productId);
+  };
+
+  /* Pagination Component */
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
@@ -106,7 +149,7 @@ export class Products extends Component {
 
   render() {
     const { length: count } = this.state.products;
-    const { pageSize, currentPage, searchQuery, likedProductIds } = this.state;
+    const { pageSize, currentPage, searchQuery } = this.state;
 
     if (count === 0) return <p>There are no products in the database.</p>;
 
@@ -159,9 +202,15 @@ export class Products extends Component {
                   "price",
                   "shortDesc",
                   "imageURL",
+                  "liked",
+                  "rating",
                   "owner",
                 ]}
-                extraProps={{ onLike: this.handleLike, likedProductIds }}
+                extraProps={{
+                  onLike: this.handleLike,
+                  onSaveRating: this.handleSaveRating,
+                  onRemoveRating: this.handleRemoveRating,
+                }}
               />
             </div>
           </div>

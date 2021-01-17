@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Like from "./like";
+import Rating from "./rating";
 
 export class Card extends Component {
   render() {
@@ -10,23 +12,18 @@ export class Card extends Component {
       shortDesc,
       imageURL,
       owner,
+      liked,
       onLike,
-      likedProductIds,
+      rating,
+      onSaveRating,
+      onRemoveRating,
     } = this.props;
-
-    const liked = likedProductIds.includes(_id);
 
     return (
       <div className="card" style={{ width: "15rem", height: "30rem" }}>
         <div>
           <div align="left" style={{ marginTop: "2em", marginLeft: "2em" }}>
-            <i
-              id={_id}
-              onClick={onLike}
-              className={liked ? "like fa fa-heart" : "like fa fa-heart-o"}
-              style={{ cursor: "pointer", color: "red" }}
-              aria-hidden="true"
-            />
+            <Like _id={_id} onLike={onLike} liked={liked} />
           </div>
           <div align="right" style={{ marginTop: "-22px", marginRight: "1em" }}>
             <span className="badge badge-info">{owner.username}</span>
@@ -39,8 +36,8 @@ export class Card extends Component {
             alt={title}
             style={{
               marginTop: "10px",
-              height: "250px",
-              width: "200px",
+              maxWidth: "200px",
+              maxHeight: "200px",
             }}
           />
         </div>
@@ -54,6 +51,14 @@ export class Card extends Component {
           <div align="right">
             <b style={{ color: "green" }}>{price}€</b>
           </div>
+        </div>
+        <div className="card-footer">
+          <Rating
+            _id={_id}
+            rating={rating}
+            onSaveRating={onSaveRating}
+            onRemoveRating={onRemoveRating}
+          />
         </div>
       </div>
     );

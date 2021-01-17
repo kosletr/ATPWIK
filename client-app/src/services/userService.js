@@ -3,6 +3,7 @@ import config from "../config.json";
 
 const userProductsUrl = config.apiUrl + "/users/products";
 const userLikesUrl = config.apiUrl + "/users/likes";
+const userRatingsUrl = config.apiUrl + "/users/ratings";
 
 /* All Products of the current User */
 export function getUserProducts() {
@@ -29,9 +30,13 @@ export function deleteUserProductById(productId) {
   return http.delete(`${userProductsUrl}/${productId}`);
 }
 
-/* Get Favourites of the current User */
+/* Favourites of the current User */
 export function getLikedProductIds() {
   return http.get(userLikesUrl);
+}
+
+export function getLikeByProductId(productId) {
+  return http.get(`${userLikesUrl}/${productId}`);
 }
 
 export function addLikeToProduct(productId) {
@@ -40,4 +45,21 @@ export function addLikeToProduct(productId) {
 
 export function removeLikeFromProduct(productId) {
   return http.delete(`${userLikesUrl}/${productId}`);
+}
+
+/* Ratings of the current User */
+export function getRatedProductIds() {
+  return http.get(userRatingsUrl);
+}
+
+export function getRatingByProductId(productId) {
+  return http.get(`${userRatingsUrl}/${productId}`);
+}
+
+export function addRatingToProduct(productId, rating) {
+  return http.put(`${userRatingsUrl}/${productId}`, { rating });
+}
+
+export function removeRatingFromProduct(productId) {
+  return http.delete(`${userRatingsUrl}/${productId}`);
 }
