@@ -25,16 +25,16 @@ A Mongodb-Express-Reactjs-Nodejs full stack web application built using the boot
 
 # Screenshots of the app (so far)
 
-![products]("https://github.com/kosletr/mern-app/tree/main/screenshots/products.png")
+![products]("https://github.com/kosletr/mern-app/blob/main/screenshots/products.png")
 
-![search filtering]("https://github.com/kosletr/mern-app/tree/main/screenshots/search_filtering.png")
+![search filtering]("https://github.com/kosletr/mern-app/blob/main/screenshots/search_filtering.png")
 
-![example product]("https://github.com/kosletr/mern-app/tree/main/screenshots/example_product.png")
+![example product]("https://github.com/kosletr/mern-app/blob/main/screenshots/example_product.png")
 
-![login]("https://github.com/kosletr/mern-app/tree/main/screenshots/login.png")
+![login]("https://github.com/kosletr/mern-app/blob/main/screenshots/login.png")
 
-![register]("https://github.com/kosletr/mern-app/tree/main/screenshots/register.png")
+![register]("https://github.com/kosletr/mern-app/blob/main/screenshots/register.png")
 
-![profile]("https://github.com/kosletr/mern-app/tree/main/screenshots/profile.png")
+![profile]("https://github.com/kosletr/mern-app/blob/main/screenshots/profile.png")
 
-![add or modify product]("https://github.com/kosletr/mern-app/tree/main/screenshots/add_or_modify_product.png")
+![add or modify product]("https://github.com/kosletr/mern-app/blob/main/screenshots/add_or_modify_product.png")
