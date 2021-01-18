@@ -100,18 +100,38 @@ export class ProductPage extends Component {
           />
         </div>
         <div className="col">
-          <div className="container">
-            <h2 style={{ marginBottom: "1em" }}>{title}</h2>
+          <div className="row">
+            <div className="col">
+              <h2
+                style={{
+                  marginBottom: "1em",
+                  display: "block",
+                  marginBottom: 0,
+                  paddingRight: "95px",
+                }}
+              >
+                {title}
+              </h2>
+            </div>
+            <div className="col">
+              <Like _id={_id} onLike={this.handleLike} liked={liked} />
+            </div>
+          </div>
+          <div className="row" style={{ margin: "30px" }}>
             <Rating
               _id={_id}
               rating={rating}
               onSaveRating={this.handleSaveRating}
               onRemoveRating={this.handleRemoveRating}
             />
-            <Like _id={_id} onLike={this.handleLike} liked={liked} />
-            <p>{shortDesc}</p>
+          </div>
+          <div className="row" style={{ marginBottom: "30px" }}>
             <h4>Description</h4>
+          </div>
+          <div className="row">
             <p>{description}</p>
+          </div>
+          <div className="row">
             <b>Price</b>: {price}€
           </div>
         </div>

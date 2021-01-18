@@ -17,9 +17,10 @@ export function getUserProductById(productId) {
 
 /* Save Product of the current User */
 export function saveUserProduct(product) {
-  if (product._id !== "") {
+  const productId = product._id;
+  if (productId !== "") {
     delete product._id;
-    return http.put(`${userProductsUrl}/${product._id}`, product);
+    return http.put(`${userProductsUrl}/${productId}`, product);
   }
   delete product._id;
   return http.post(userProductsUrl, product);

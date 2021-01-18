@@ -5,11 +5,11 @@ const Rate = mongoose.model(
   "rate",
   new mongoose.Schema({
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
       required: true,
     },
     productId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
       required: true,
     },
     rating: {

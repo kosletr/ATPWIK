@@ -29,15 +29,20 @@ export class Card extends Component {
             <span className="badge badge-info">{owner.username}</span>
           </div>
         </div>
-        <div align="center">
+        <div
+          style={{
+            maxWidth: "12rem",
+            maxHeight: "17rem",
+          }}
+        >
           <img
             className="card-img-top"
             src={imageURL}
             alt={title}
             style={{
-              marginTop: "10px",
-              maxWidth: "200px",
-              maxHeight: "200px",
+              marginTop: "22px",
+              marginLeft: "22px",
+              height: "200px",
             }}
           />
         </div>

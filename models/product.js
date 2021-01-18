@@ -11,11 +11,11 @@ const Product = mongoose.model(
       maxlength: 20,
     },
     owner: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: "user",
     },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: "category",
     },
     price: {
