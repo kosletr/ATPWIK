@@ -11,7 +11,7 @@ const Sidebar = ({
 }) => {
   return (
     <div className="sidebar">
-      <h5 style={{ marginBottom: "2em" }}>Filters</h5>
+      <h5 style={{  margin: "1rem 0" }}>Filters</h5>
       <SidebarGroup
         items={items}
         textProperty={textProperty}
@@ -19,27 +19,14 @@ const Sidebar = ({
         selectedItem={selectedItem}
         onItemSelect={onItemSelect}
       />
-
       <h6>Others</h6>
-      <div className="col">
-        <ul className="nav nav-sidebar">
-          <li>
-            <Link to="/">To do</Link>
-          </li>
-          <li>
-            <Link to="/">To do</Link>
-          </li>
-          <li>
-            <Link to="/">To do</Link>
-          </li>
-          <li>
-            <Link to="/">To do</Link>
-          </li>
-          <li>
-            <Link to="/">To do</Link>
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
+        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
+        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
+        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
+        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
+      </ul>
     </div>
   );
 };

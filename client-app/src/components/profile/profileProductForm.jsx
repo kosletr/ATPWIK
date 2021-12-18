@@ -88,7 +88,7 @@ class ProfileProductPage extends Form {
 
   render() {
     return (
-      <div className="container">
+      <div className="">
         <h1>Product Form</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title", "Short Title")}

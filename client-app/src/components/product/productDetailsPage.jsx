@@ -90,18 +90,17 @@ export class ProductPage extends Component {
     } = this.state.product;
 
     return (
-      <div className="row">
-        <div className="col-1"></div>
-        <div className="col">
+      <div>
+        <div className="">
           <img
             src={imageURL}
             alt={title}
             style={{ maxWidth: "330px", maxHeight: "330px" }}
           />
         </div>
-        <div className="col">
-          <div className="row">
-            <div className="col">
+        <div className="">
+          <div>
+            <div className="">
               <h2
                 style={{
                   marginBottom: "1em",
@@ -113,11 +112,11 @@ export class ProductPage extends Component {
                 {title}
               </h2>
             </div>
-            <div className="col">
+            <div className="">
               <Like _id={_id} onLike={this.handleLike} liked={liked} />
             </div>
           </div>
-          <div className="row" style={{ margin: "30px" }}>
+          <div style={{ margin: "30px" }}>
             <Rating
               _id={_id}
               rating={rating}
@@ -125,13 +124,13 @@ export class ProductPage extends Component {
               onRemoveRating={this.handleRemoveRating}
             />
           </div>
-          <div className="row" style={{ marginBottom: "30px" }}>
+          <div style={{ marginBottom: "30px" }}>
             <h4>Description</h4>
           </div>
-          <div className="row">
+          <div>
             <p>{description}</p>
           </div>
-          <div className="row">
+          <div>
             <b>Price</b>: {price}€
           </div>
         </div>

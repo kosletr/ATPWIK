@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import "./cards.css"
 
 export class ListCards extends Component {
   render() {
@@ -7,20 +8,16 @@ export class ListCards extends Component {
     if (!data || data.length === 0) return null;
 
     return (
-      <ol className="list-group list-group-horizontal align-items-stretch flex-wrap">
+      <div className="my-card-list">
         {data.map((entry) => {
           const properties = _.pick(entry, cardDetails);
           return (
-            <div
-              style={{ overflow: "hidden" }}
-              className="list-group-item border-0"
-              key={data.indexOf(entry)}
-            >
+            <div key={data.indexOf(entry)}>
               <Component {...properties} {...extraProps} />
             </div>
           );
         })}
-      </ol>
+      </div>
     );
   }
 }

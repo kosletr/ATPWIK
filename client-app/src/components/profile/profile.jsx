@@ -8,36 +8,36 @@ function Profile({ user }) {
     <React.Fragment>
       {user && (
         <React.Fragment>
-          <div className="container">
-            <div className="row">
+          <div className="">
+            <div>
               <h3>
                 Hello {user.firstname} {user.lastname}
               </h3>
             </div>
-            <div className="row">
-              <div className="col-8" />
-              <div className="col">
+            <div>
+              <div className="" />
+              <div className="">
                 <Link to="/profile/products/new" className="btn btn-primary">
                   Add Product
                 </Link>
               </div>
             </div>
             <div
-              className="row"
+            
               style={{ paddingTop: "2em", paddingBottom: "1em" }}
             >
               <h4>My Products</h4>
             </div>
-            <div className="row">
+            <div>
               <ProfileProductsTable ownerId={user._id} />
             </div>
             <div
-              className="row"
+            
               style={{ paddingTop: "2em", paddingBottom: "1em" }}
             >
               <h4>My Favourites</h4>
             </div>
-            <div className="row">
+            <div>
               <ProfileLikesTable />
             </div>
           </div>

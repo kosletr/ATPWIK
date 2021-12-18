@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
 import "font-awesome/css/font-awesome.css";
 import "./App.css";
+import "./layout.css"
 
 import React, { Component } from "react";
 import Logout from "./components/auth/logout";
@@ -29,9 +30,11 @@ export class App extends Component {
   render() {
     const { user } = this.state;
     return (
-      <div>
-        <Navbar user={user} />
-        <main className="container-fluid">
+      <div className="layout">
+        <div className="navbar">
+          <Navbar user={user} />
+        </div>
+        <React.Fragment>
           <ToastContainer />
           <Switch>
             <Route path="/login" component={LoginForm} />
@@ -48,7 +51,7 @@ export class App extends Component {
             <Route path="/" exact component={HomePage} />
             <Redirect to="/not-found" />
           </Switch>
-        </main>
+        </React.Fragment>
       </div>
     );
   }

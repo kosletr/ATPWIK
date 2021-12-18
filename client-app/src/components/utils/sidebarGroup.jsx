@@ -9,14 +9,14 @@ function SidebarGroup({
 }) {
   return (
     <React.Fragment>
-      <h6>Categories</h6>
-      <div className="col">
-        <ul className="nav nav-sidebar">
+      <h6 style={{ margin: "0.5rem 0" }} >Categories</h6>
+      <div>
+        <ul>
           {items.map((item) => (
             <li
               key={item[valueProperty]}
               value={item === selectedItem ? true : false}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", margin: "0.5rem 0" }}
               onClick={() => onItemSelect(item)}
             >
               <input

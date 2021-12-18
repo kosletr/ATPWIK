@@ -36,16 +36,16 @@ class LoginForm extends Form {
   render() {
     return (
       <React.Fragment>
-        <div className="row" style={{ paddingBottom: "2em" }}>
-          <div className="col" />
-          <div className="col">
+        <div style={{ paddingBottom: "2em" }}>
+          <div className="" />
+          <div className="">
             <h3 align="center">Login Page</h3>
           </div>
-          <div className="col" />
+          <div className="" />
         </div>
-        <div className="row">
-          <div className="col" />
-          <div className="col">
+        <div>
+          <div className="" />
+          <div className="">
             <form onSubmit={this.handleSubmit}>
               {this.renderInput("username", "Username", "Enter Username")}
               {this.renderInput(
@@ -57,7 +57,7 @@ class LoginForm extends Form {
               {this.renderButton("Login")}
             </form>
           </div>
-          <div className="col" />
+          <div className="" />
         </div>
       </React.Fragment>
     );

@@ -6,7 +6,7 @@ function SearchBox2({ value, onChange, items }) {
       <input
         type="text"
         name="query"
-        className="form-control my-3"
+        className="form-control"
         placeholder="&#xF002; Search..."
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}

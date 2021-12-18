@@ -9,15 +9,15 @@ function RatingStar(props) {
     onMouseEnter,
     onMouseLeave,
     onSaveRating,
+    onRemoveRating,
   } = props;
 
   const fill = React.useMemo(() => {
-    if (hoverRating >= index) {
-      return "fa fa-star";
-    } else if (!hoverRating && rating >= index) {
-      return "fa fa-star";
-    }
-    return "fa fa-star-o";
+    return "fa fa-star" + (
+      hoverRating >= index || (!hoverRating && rating >= index)
+        ? ""
+        : "-o"
+    );
   }, [rating, hoverRating, index]);
 
   return (
@@ -28,7 +28,9 @@ function RatingStar(props) {
       onMouseEnter={() => onMouseEnter(index)}
       onMouseLeave={() => onMouseLeave()}
       onClick={() => {
-        onSaveRating(index, _id);
+        rating === undefined || rating === 0 || rating !== index
+          ? onSaveRating(index, _id)
+          : onRemoveRating(_id)
       }}
     />
   );

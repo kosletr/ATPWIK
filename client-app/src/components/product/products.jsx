@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../../layout.css"
 import Sidebar from "../utils/sidebar";
 import Card from "../utils/card";
 import ListCards from "../utils/listCards";
@@ -157,75 +158,41 @@ export class Products extends Component {
 
     return (
       <React.Fragment>
-        <div className="col-3">
+        <div className="sidebar">
           <Sidebar
             items={this.state.categories}
             selectedItem={this.state.selectedCategory}
             onItemSelect={this.handleCategorySelect}
           />
         </div>
-
-        <div className="col main">
-          <div className="row">
-            <div className="col-sm-5" />
-            <div className="col-sm">
-              <SearchBox2
-                value={searchQuery}
-                onChange={this.handleSearch}
-                items={searchList}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-9" />
-            <div className="col">
-              <Pagination
-                itemsCount={totalCount}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChange={this.handlePageChange}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-sm-2" />
-            <div className="col-" />
-            <div className="col">
-              <ListCards
-                data={products}
-                Component={Card}
-                cardDetails={[
-                  "_id",
-                  "title",
-                  "price",
-                  "shortDesc",
-                  "imageURL",
-                  "liked",
-                  "rating",
-                  "owner",
-                ]}
-                extraProps={{
-                  onLike: this.handleLike,
-                  onSaveRating: this.handleSaveRating,
-                  onRemoveRating: this.handleRemoveRating,
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-9" />
-            <div className="col">
-              <Pagination
-                itemsCount={totalCount}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChange={this.handlePageChange}
-              />
-            </div>
-          </div>
+        <div className="main">
+          <SearchBox2
+            value={searchQuery}
+            onChange={this.handleSearch}
+            items={searchList}
+          />
+          <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={this.handlePageChange}
+          />
+          <ListCards
+            data={products}
+            Component={Card}
+            cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
+            extraProps={{
+              onLike: this.handleLike,
+              onSaveRating: this.handleSaveRating,
+              onRemoveRating: this.handleRemoveRating,
+            }}
+          />
+          <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={this.handlePageChange}
+          />
         </div>
       </React.Fragment>
     );

@@ -63,16 +63,16 @@ class RegisterForm extends Form {
   render() {
     return (
       <React.Fragment>
-        <div className="row" style={{ paddingBottom: "2em" }}>
-          <div className="col" />
-          <div className="col">
+        <div style={{ paddingBottom: "2em" }}>
+          <div className="" />
+          <div className="">
             <h3 align="center">Register Page</h3>
           </div>
-          <div className="col" />
+          <div className="" />
         </div>
-        <div className="row">
-          <div className="col" />
-          <div className="col">
+        <div>
+          <div className="" />
+          <div className="">
             <form onSubmit={this.handleSubmit}>
               {this.renderInput("firstname", "Firstname", "Enter Firstname")}
               {this.renderInput("lastname", "Lastname", "Enter Lastname")}
@@ -93,7 +93,7 @@ class RegisterForm extends Form {
               {this.renderButton("Register")}
             </form>
           </div>
-          <div className="col" />
+          <div className="" />
         </div>
       </React.Fragment>
     );
