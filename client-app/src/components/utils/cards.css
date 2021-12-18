@@ -1,6 +1,5 @@
 .my-card-list {
   margin: 2rem;
-  max-width: 950px;
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;

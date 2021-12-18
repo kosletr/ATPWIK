@@ -51,18 +51,20 @@ router.put("/:id", auth, async (req, res) => {
   if (!product)
     return res.status(404).send("The product with the given id was not found.");
 
-  if (String(product.owner._id) !== req.user._id) {
+  if (String(product.owner._id) !== req.user._id)
     return res.status(401).send("You do not own this product.");
-  }
 
   const category = await Category.findById(req.body.category);
   if (!category) return res.status(400).send("Invalid category.");
 
-  req.body.owner = req.user;
+  const details = { ...req.body, owner: req.user };
 
-  product = await Product.findOneAndUpdate(req.params.id, req.body, {
-    new: true,
-  }).select("-__v");
+  product = await Product.findOneAndUpdate(
+    { _id: req.params.id },
+    details,
+    { new: true }
+  ).select("-__v");
+
   if (!product)
     return res.status(404).send("The product with the given id was not found.");
 
@@ -76,14 +78,12 @@ router.delete("/:id", auth, async (req, res) => {
   if (!product)
     return res.status(404).send("The product with the given id was not found.");
 
-  const userId = req.user._id;
 
-  if (String(product.owner._id) !== userId)
+  if (String(product.owner._id) !== req.user._id)
     return res.status(401).send("You do not own this product.");
 
   // Todo: use fawn here
-  await Like.findOneAndDelete({ productId, userId });
-  // await Product.findByIdAndRemove(productId);
+  await Product.findByIdAndRemove(productId);
 
   res.send(product);
 });
