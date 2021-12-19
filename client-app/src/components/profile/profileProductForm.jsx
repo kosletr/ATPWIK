@@ -88,25 +88,15 @@ class ProfileProductPage extends Form {
 
   render() {
     return (
-      <div className="">
-        <h1>Product Form</h1>
+      <div className="container" style={{ padding: "2rem" }}>
+        <h1 style={{ padding: "2rem 0" }}>Product Form</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title", "Short Title")}
           {this.renderSelect("category", "Category", this.state.categories)}
-
           {this.renderInput("price", "Price", "Price in Euros", "number")}
-          {this.renderInput(
-            "shortDesc",
-            "Short Description",
-            "Short Description"
-          )}
+          {this.renderInput("shortDesc", "Short Description", "Short Description")}
           {this.renderTextArea("description", "Full Description")}
-          {this.renderInput(
-            "imageURL",
-            "Image URL",
-            "http(s)://example.com/image.jpg"
-          )}
-
+          {this.renderInput("imageURL", "Image URL", "http(s)://example.com/image.jpg")}
           {this.renderButton("Save")}
         </form>
       </div>

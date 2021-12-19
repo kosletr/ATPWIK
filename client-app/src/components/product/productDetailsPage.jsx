@@ -78,62 +78,22 @@ export class ProductPage extends Component {
   };
 
   render() {
-    const {
-      _id,
-      title,
-      price,
-      shortDesc,
-      imageURL,
-      description,
-      liked,
-      rating,
-    } = this.state.product;
+    const { _id, title, price, shortDesc, imageURL, description, liked, rating } = this.state.product;
 
     return (
-      <div>
-        <div className="">
-          <img
-            src={imageURL}
-            alt={title}
-            style={{ maxWidth: "330px", maxHeight: "330px" }}
-          />
+      <div className="container">
+        <img src={imageURL} alt={title} style={{ maxWidth: "330px", maxHeight: "330px" }} />
+        <div style={{ margin: "2rem 2rem 0 0", display: "flex" }} >
+          <h2 style={{ paddingRight: "1rem" }} > {title} </h2>
+          <span style={{ paddingTop: "0.5rem" }}>
+            <Like _id={_id} onLike={this.handleLike} liked={liked} />
+          </span>
         </div>
-        <div className="">
-          <div>
-            <div className="">
-              <h2
-                style={{
-                  marginBottom: "1em",
-                  display: "block",
-                  marginBottom: 0,
-                  paddingRight: "95px",
-                }}
-              >
-                {title}
-              </h2>
-            </div>
-            <div className="">
-              <Like _id={_id} onLike={this.handleLike} liked={liked} />
-            </div>
-          </div>
-          <div style={{ margin: "30px" }}>
-            <Rating
-              _id={_id}
-              rating={rating}
-              onSaveRating={this.handleSaveRating}
-              onRemoveRating={this.handleRemoveRating}
-            />
-          </div>
-          <div style={{ marginBottom: "30px" }}>
-            <h4>Description</h4>
-          </div>
-          <div>
-            <p>{description}</p>
-          </div>
-          <div>
-            <b>Price</b>: {price}€
-          </div>
-        </div>
+        <Rating _id={_id} rating={rating}
+          onSaveRating={this.handleSaveRating} onRemoveRating={this.handleRemoveRating} />
+        <h4 style={{ marginTop: "2rem" }}>Description</h4>
+        <p>{description}</p>
+        <b>Price</b>: {price}€
       </div>
     );
   }

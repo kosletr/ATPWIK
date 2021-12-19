@@ -7,42 +7,16 @@ function Profile({ user }) {
   return (
     <React.Fragment>
       {user && (
-        <React.Fragment>
-          <div className="">
-            <div>
-              <h3>
-                Hello {user.firstname} {user.lastname}
-              </h3>
-            </div>
-            <div>
-              <div className="" />
-              <div className="">
-                <Link to="/profile/products/new" className="btn btn-primary">
-                  Add Product
-                </Link>
-              </div>
-            </div>
-            <div
-            
-              style={{ paddingTop: "2em", paddingBottom: "1em" }}
-            >
-              <h4>My Products</h4>
-            </div>
-            <div>
-              <ProfileProductsTable ownerId={user._id} />
-            </div>
-            <div
-            
-              style={{ paddingTop: "2em", paddingBottom: "1em" }}
-            >
-              <h4>My Favourites</h4>
-            </div>
-            <div>
-              <ProfileLikesTable />
-            </div>
-          </div>
-        </React.Fragment>
-      )}
+        <div className="container">
+          <h3 style={{ padding: "2rem 0" }}>Hello {user.firstname} {user.lastname}</h3>
+          <Link to="/profile/products/new" className="btn btn-primary">
+            Add Product
+          </Link>
+          <h4 style={{ padding: "2rem 0" }}>My Products</h4>
+          <ProfileProductsTable ownerId={user._id} />
+          <h4 style={{ padding: "2rem 0" }}>My Favourites</h4>
+          <ProfileLikesTable />
+        </div>)}
     </React.Fragment>
   );
 }
