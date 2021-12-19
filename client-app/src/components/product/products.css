@@ -1,0 +1,25 @@
+.products-page {
+  display: grid;
+  grid-template-areas: "sidebar products";
+  grid-template-columns: 20fr 80fr;
+  margin-right: 5rem;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 350px;
+  background-color: #f1f1f1;
+  padding: 2rem;
+}
+
+.products-area {
+  grid-area: products;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

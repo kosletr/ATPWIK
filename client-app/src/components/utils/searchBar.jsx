@@ -1,6 +1,6 @@
 import React from "react";
 
-function SearchBox2({ value, onChange, items }) {
+function SearchBar({ value, onChange, items }) {
   return (
     <React.Fragment>
       <input
@@ -11,7 +11,7 @@ function SearchBox2({ value, onChange, items }) {
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
         list="datalist"
-        style={{ width: "455px", fontFamily: "Arial, FontAwesome" }}
+        style={{ height: "3rem", width: "800px", fontFamily: "Arial, FontAwesome" }}
       />
       <datalist id="datalist">
         {items.map((i) => (
@@ -22,4 +22,4 @@ function SearchBox2({ value, onChange, items }) {
   );
 }
 
-export default SearchBox2;
+export default SearchBar;

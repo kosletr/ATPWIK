@@ -10,8 +10,8 @@ const Sidebar = ({
   onItemSelect,
 }) => {
   return (
-    <div className="sidebar">
-      <h5 style={{  margin: "1rem 0" }}>Filters</h5>
+    <React.Fragment>
+      <h5 style={{ margin: "1rem 0" }}>Filters</h5>
       <SidebarGroup
         items={items}
         textProperty={textProperty}
@@ -21,13 +21,13 @@ const Sidebar = ({
       />
       <h6>Others</h6>
       <ul>
-        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
-        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
-        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
-        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
-        <li style={{margin: "0.5rem 0"}}><Link to="/">To do</Link></li>
+        <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
+        <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
+        <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
+        <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
+        <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
       </ul>
-    </div>
+    </React.Fragment>
   );
 };
 

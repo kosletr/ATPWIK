@@ -34,7 +34,7 @@ export class App extends Component {
         <div className="navbar">
           <Navbar user={user} />
         </div>
-        <React.Fragment>
+        <div className="main">
           <ToastContainer />
           <Switch>
             <Route path="/login" component={LoginForm} />
@@ -51,7 +51,7 @@ export class App extends Component {
             <Route path="/" exact component={HomePage} />
             <Redirect to="/not-found" />
           </Switch>
-        </React.Fragment>
+        </div>
       </div>
     );
   }

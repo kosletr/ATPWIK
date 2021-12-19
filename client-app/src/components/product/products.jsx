@@ -3,7 +3,7 @@ import "../../layout.css"
 import Sidebar from "../utils/sidebar";
 import Card from "../utils/card";
 import ListCards from "../utils/listCards";
-import SearchBox2 from "../utils/searchBox";
+import SearchBar from "../utils/searchBar";
 import Pagination from "../utils/pagination";
 import { paginate } from "../utils/paginate";
 import { getProducts } from "../../services/productService";
@@ -17,6 +17,8 @@ import {
   addRatingToProduct,
   removeRatingFromProduct,
 } from "../../services/userService";
+import "./products.css";
+import "../product/products.css"
 
 export class Products extends Component {
   state = {
@@ -157,7 +159,7 @@ export class Products extends Component {
     const { totalCount, data: products, searchList } = this.getPagedData();
 
     return (
-      <React.Fragment>
+      <div className="products-page">
         <div className="sidebar">
           <Sidebar
             items={this.state.categories}
@@ -165,8 +167,9 @@ export class Products extends Component {
             onItemSelect={this.handleCategorySelect}
           />
         </div>
-        <div className="main">
-          <SearchBox2
+        <div className="products-area">
+
+          <SearchBar
             value={searchQuery}
             onChange={this.handleSearch}
             items={searchList}
@@ -193,8 +196,9 @@ export class Products extends Component {
             currentPage={currentPage}
             onPageChange={this.handlePageChange}
           />
+
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import "./pagination.css"
 
 class Pagination extends Component {
   render() {
@@ -9,26 +10,14 @@ class Pagination extends Component {
     if (pagesCount === 1) return null;
     const pages = _.range(1, pagesCount + 1);
     return (
-      <nav>
-        <ul className="pagination">
-          {pages.map((page) => (
-            <li
-              key={page}
-              className={
-                page === currentPage ? "page-item active" : "page-item"
-              }
-            >
-              <a
-                className="page-link"
-                style={{ cursor: "pointer", marginTop: "10px" }}
-                onClick={() => onPageChange(page)}
-              >
-                {page}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <nav><ul className="my-pagination">
+        {pages.map((page) => (
+          <li key={page}
+            className={"my-page " + (page === currentPage ? "my-current-page" : "")}
+            onClick={() => onPageChange(page)}>{page}
+          </li>
+        ))}
+      </ul></nav>
     );
   }
 }
