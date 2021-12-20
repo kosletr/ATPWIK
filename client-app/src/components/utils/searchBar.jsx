@@ -11,7 +11,7 @@ function SearchBar({ value, onChange, items }) {
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
         list="datalist"
-        style={{ height: "3rem", width: "800px", fontFamily: "Arial, FontAwesome" }}
+        style={{ height: "3rem", width: "500px", fontFamily: "Arial, FontAwesome" }}
       />
       <datalist id="datalist">
         {items.map((i) => (

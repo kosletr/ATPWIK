@@ -168,7 +168,6 @@ export class Products extends Component {
           />
         </div>
         <div className="products-area">
-
           <SearchBar
             value={searchQuery}
             onChange={this.handleSearch}

@@ -14,7 +14,7 @@ router.post("/", [auth, admin], async (req, res) => {
   if (error) return res.status(400).send(error.message);
 
   const categ = await Category.find({ name: req.body.name });
-  if (categ && categ.length !== 0) return res.status(400).send("Category exists already.");
+  if (categ && categ.length !== 0) return res.status(400).send("Category already exists.");
 
   const category = await new Category(body).save();
 

@@ -19,14 +19,14 @@ const Sidebar = ({
         selectedItem={selectedItem}
         onItemSelect={onItemSelect}
       />
-      <h6>Others</h6>
+      {/* <h6>Others</h6>
       <ul>
         <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
         <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
         <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
         <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
         <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
-      </ul>
+      </ul> */}
     </React.Fragment>
   );
 };

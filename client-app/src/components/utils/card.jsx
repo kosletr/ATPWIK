@@ -31,8 +31,12 @@ export class Card extends Component {
             <img className="my-card-img-top" src={imageURL} alt={title} />
           </div>
           <Link className="my-card-title" to={`/products/${_id}`}>{title}</Link>
-          <p className="my-card-description">{shortDesc}</p>
-          <div className="my-card-price">{price}€</div>
+          <div className="my-card-description">
+            <p>{shortDesc}</p>
+          </div>
+          <div className="my-card-price">
+            <p>{price}€</p>
+          </div>
         </div>
         <div className="my-card-footer">
           <Rating _id={_id} rating={rating} onSaveRating={onSaveRating} onRemoveRating={onRemoveRating} />

@@ -7,6 +7,7 @@ import Products from "./components/product/products";
 import HomePage from "./components/homePage";
 import RegisterForm from "./components/auth/registerForm";
 import ProfileProductPage from "./components/profile/profileProductForm";
+import CategoryPage from "./components/profile/categoryForm";
 import authService from "./services/authService";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -40,10 +41,8 @@ export class App extends Component {
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterForm} />
-            <Route
-              path="/profile/products/:id"
-              component={ProfileProductPage}
-            />
+            <Route path="/profile/products/:id" component={ProfileProductPage} />
+            <Route path="/profile/categories/:id" component={CategoryPage} />
             <Route path="/profile" render={() => <Profile user={user} />} />
             <Route path="/products/:id" component={ProductPage} />
             <Route path="/products" component={Products} />
