@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Table from "../utils/table";
 import Pagination from "../utils/pagination";
 import { paginate } from "../utils/paginate";
-import { getCategories } from "../../services/categoryService";
+import { getCategories, removeCategory } from "../../services/categoryService";
 import authService from "../../services/authService";
 
 class CategoriesTable extends Component {
@@ -28,7 +28,7 @@ class CategoriesTable extends Component {
     this.setState({ categories });
 
     try {
-      // await removeCategory(category._id);
+      await removeCategory(category._id);
     } catch (ex) {
       if (ex.response && ex.response.status === 404)
         console.error("This category has already been removed.");

@@ -11,7 +11,7 @@ function SidebarGroup({
     <React.Fragment>
       <h6 style={{ margin: "0.5rem 0" }} >Categories</h6>
       <div>
-        <ul>
+        <ul style={{ listStyleType: "none" }}>
           {items.map((item) => (
             <li
               key={item[valueProperty]}

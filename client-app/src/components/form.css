@@ -1,0 +1,15 @@
+.my-form-layout {
+    display: flex;
+    margin: 1rem 0;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.my-form-title {
+    margin: 1rem;
+}
+
+.my-form-body {
+    width: 450px;
+}

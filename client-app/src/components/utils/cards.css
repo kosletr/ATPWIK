@@ -26,13 +26,14 @@
   display: flex;
   height: 10%;
   justify-content: space-between;
-  padding: 0.8rem 1rem;
+  align-items: center;
 }
 
 .my-card-body {
   margin: 0.5rem 0;
   padding: 0 1rem;
   display: flex;
+  height: 80%;
   flex-direction: column;
 }
 
@@ -42,7 +43,6 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  padding: 0 0.5rem;
 }
 
 .my-card-img img {
@@ -53,29 +53,32 @@
 }
 
 .my-card-title {
-  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
   font-size: 1.3rem;
+  height: 15%;
   text-decoration: none;
-  padding-top: 0.5rem;
 }
 
 .my-card-description {
   text-align: center;
   font-size: 1rem;
-  height: 20%;
+  height: 50px;
   overflow: hidden;
 }
 
 .my-card-price {
   align-self: flex-end;
-  height: 0;
+  height: 8%;
   color: green;
 }
 
 .my-card-footer {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   height: 10%;
-  padding: 0 1rem;
+  padding-left: 1rem;
 }

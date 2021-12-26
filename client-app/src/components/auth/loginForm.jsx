@@ -35,14 +35,23 @@ class LoginForm extends Form {
     }
   };
   render() {
+
+    if (authService.getCurrentUser() !== null) {
+      this.props.history.push("/profile");
+    }
+
     return (
-      <div className="container" style={{ padding: "2rem"}}>
-        <h3>Login Page</h3>
-        <form style={{ padding: "2rem 0"}} onSubmit={this.handleSubmit}>
-          {this.renderInput("username", "Username", "Enter Username")}
-          {this.renderInput("password", "Password", "Enter Password", "password")}
-          {this.renderButton("Login")}
-        </form>
+      <div className="my-form-layout" >
+        <div className="my-form-title">
+          <h3>Login Page</h3>
+        </div>
+        <div className="my-form-body">
+          <form onSubmit={this.handleSubmit}>
+            {this.renderInput("username", "Username", "Enter Username")}
+            {this.renderInput("password", "Password", "Enter Password", "password")}
+            {this.renderButton("Login")}
+          </form>
+        </div>
       </div>
     );
   }

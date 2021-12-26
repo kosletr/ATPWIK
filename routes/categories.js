@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { Category, validateCategory } = require("../models/category");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
+const { Product } = require("../models/product");
 
 router.get("/", async (req, res) => {
   const categories = await Category.find().select("-__v");
@@ -19,6 +20,13 @@ router.post("/", [auth, admin], async (req, res) => {
   const category = await new Category(body).save();
 
   res.send(category._id);
+});
+
+router.delete("/:id", [auth, admin], async (req, res) => {
+  const category = await Category.findOneAndDelete({ _id: req.params.id });
+  if (!category) return res.status(400).send("Category does not exist.");
+
+  res.status(200);
 });
 
 module.exports = router;

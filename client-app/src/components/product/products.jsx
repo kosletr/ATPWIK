@@ -154,7 +154,7 @@ export class Products extends Component {
     const { length: count } = this.state.products;
     const { pageSize, currentPage, searchQuery } = this.state;
 
-    if (count === 0) return <p>There are no products in the database.</p>;
+    if (count === 0) return <div style={{ padding: "2rem" }}><p>There are no products in the database.</p></div>;
 
     const { totalCount, data: products, searchList } = this.getPagedData();
 

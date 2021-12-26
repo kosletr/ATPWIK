@@ -17,4 +17,8 @@ function saveCategory(category) {
     : http.put(`${categoryBaseUrl}/${category._id}`, category);
 }
 
-export { getCategories, getCategoryById, saveCategory };
+function removeCategory(_id) {
+  return http.delete(`${categoryBaseUrl}/${_id}`)
+}
+
+export { getCategories, getCategoryById, saveCategory, removeCategory };

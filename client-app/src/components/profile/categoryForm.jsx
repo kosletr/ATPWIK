@@ -52,12 +52,16 @@ class CategoryPage extends Form {
 
   render() {
     return (
-      <div className="container" style={{ padding: "2rem" }}>
-        <h1 style={{ padding: "2rem 0" }}>Product Form</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("name", "Category", "Enter a new category...")}
-          {this.renderButton("Save")}
-        </form>
+      <div className="my-form-layout" >
+        <div className="my-form-title">
+          <h1>New Category Form</h1>
+        </div>
+        <div className="my-form-body">
+          <form onSubmit={this.handleSubmit}>
+            {this.renderInput("name", "Category", "Enter a new category...")}
+            {this.renderButton("Save")}
+          </form>
+        </div>
       </div>
     );
   }
