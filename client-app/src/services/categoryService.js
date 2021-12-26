@@ -1,7 +1,7 @@
 import http from "./httpService";
-import { apiUrl } from "../config.json";
+import config from "../config.json";
 
-const categoryBaseUrl = `${apiUrl}/categories`
+const categoryBaseUrl = `${config.apiUrl}/categories`
 
 function getCategories() {
   return http.get(categoryBaseUrl);
@@ -12,11 +12,9 @@ function getCategoryById(_id) {
 }
 
 function saveCategory(category) {
-  const categoryId = category._id;
-  delete category._id;
-  return categoryId === ""
-    ? http.post(categoryBaseUrl, category)
-    : http.put(`${categoryBaseUrl}/${categoryId}`, category);
+  return category._id === ""
+    ? http.post(categoryBaseUrl, { name: category.name })
+    : http.put(`${categoryBaseUrl}/${category._id}`, category);
 }
 
 export { getCategories, getCategoryById, saveCategory };
