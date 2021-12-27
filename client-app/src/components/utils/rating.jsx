@@ -1,43 +1,63 @@
-import React, { Component } from "react";
-import RatingStar from "./ratingStar";
+import React, { useState } from "react";
 
-export class Rating extends Component {
-  state = {
-    hoverRating: 0,
-  };
+function Rating({ _id, rating, onSaveRating, onRemoveRating }) {
+  const [hoverRating, setHoverRating] = useState(0);
 
-  onMouseEnter = (index) => {
-    this.setState({ hoverRating: index });
-  };
+  return (
+    <div>
+      {[1, 2, 3, 4, 5].map((index) => {
+        return (
+          <RatingStar
+            _id={_id}
+            key={index}
+            index={index}
+            rating={rating}
+            hoverRating={hoverRating}
+            onMouseEnter={(index) => setHoverRating(index)}
+            onMouseLeave={() => setHoverRating(0)}
+            onSaveRating={onSaveRating}
+            onRemoveRating={onRemoveRating}
+          />
+        );
+      })}
+    </div>
+  );
+}
 
-  onMouseLeave = () => {
-    this.setState({ hoverRating: 0 });
-  };
+function RatingStar(props) {
+  const {
+    _id,
+    index,
+    rating,
+    hoverRating,
+    onMouseEnter,
+    onMouseLeave,
+    onSaveRating,
+    onRemoveRating,
+  } = props;
 
-  render() {
-    const { hoverRating } = this.state;
-    const { _id, rating, onSaveRating, onRemoveRating } = this.props;
-
-    return (
-      <div>
-        {[1, 2, 3, 4, 5].map((index) => {
-          return (
-            <RatingStar
-              _id={_id}
-              key={index}
-              index={index}
-              rating={rating}
-              hoverRating={hoverRating}
-              onMouseEnter={this.onMouseEnter}
-              onMouseLeave={this.onMouseLeave}
-              onSaveRating={onSaveRating}
-              onRemoveRating={onRemoveRating}
-            />
-          );
-        })}
-      </div>
+  const fill = React.useMemo(() => {
+    return "fa fa-star" + (
+      hoverRating >= index || (!hoverRating && rating >= index)
+        ? ""
+        : "-o"
     );
-  }
+  }, [rating, hoverRating, index]);
+
+  return (
+    <i
+      className={fill}
+      aria-hidden="true"
+      style={{ cursor: "pointer", color: "#f68b24" }}
+      onMouseEnter={() => onMouseEnter(index)}
+      onMouseLeave={() => onMouseLeave()}
+      onClick={() => {
+        rating === undefined || rating === 0 || rating !== index
+          ? onSaveRating(index, _id)
+          : onRemoveRating(_id)
+      }}
+    />
+  );
 }
 
 export default Rating;

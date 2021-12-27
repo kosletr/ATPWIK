@@ -1,8 +1,7 @@
 import React from "react";
-import TableHeader from "./tableHeader";
-import TableBody from "./tableBody";
+import _ from "lodash";
 
-const Table = ({ columns, sortColumn, onSort, data }) => {
+function Table({ columns, sortColumn, onSort, data }) {
   return (
     <table className="table">
       <TableHeader columns={columns} sortColumn={sortColumn} onSort={onSort} />
@@ -10,5 +9,73 @@ const Table = ({ columns, sortColumn, onSort, data }) => {
     </table>
   );
 };
+
+
+function TableBody({ data, columns }) {
+  const renderCell = (item, column) => {
+    if (column.content) return column.content(item);
+    return _.get(item, column.path);
+  };
+
+  const createKey = (item, column) => {
+    return item._id + (column.path || column.key);
+  };
+
+  return (
+    <tbody>
+      {data.map((item) => {
+        return (
+          <tr key={item._id}>
+            {columns.map((column) => (
+              <td key={createKey(item, column)}>
+                {renderCell(item, column)}
+              </td>
+            ))}
+          </tr>
+        );
+      })}
+    </tbody>
+  );
+}
+
+// columns: array
+// sortColumn: object
+// onSort: function
+
+function TableHeader({ sortColumn, onSort, columns }) {
+  const raiseSort = (path) => {
+    if (sortColumn.path === path)
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    else {
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    }
+    onSort(sortColumn);
+  };
+
+  const renderSortIcon = (column) => {
+    if (column.path !== sortColumn.path) return null;
+    if (sortColumn.order === "asc") return <i className="fa fa-sort-asc" />;
+    return <i className="fa fa-sort-desc" />;
+  };
+
+  return (
+    <thead>
+      <tr>
+        {columns.map((column) => (
+          <th
+            className="clickable"
+            key={column.path || column.key}
+            onClick={() => raiseSort(column.path)}
+            style={{ cursor: "pointer" }}
+          >
+            {column.label} {renderSortIcon(column)}
+          </th>
+        ))}
+      </tr>
+    </thead>
+  );
+}
+
 
 export default Table;

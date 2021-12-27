@@ -1,7 +1,6 @@
 import React from "react";
 
-function Like(props) {
-  const { _id, onLike, liked } = props;
+function Like({ _id, onLike, liked }) {
   return (
     <i
       id={_id}

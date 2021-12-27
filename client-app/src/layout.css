@@ -6,6 +6,7 @@
   grid-template-rows: 50px auto;
   grid-template-columns: auto;
   height: 90vh;
+  background-color: #f1f1f1;
 }
 
 .navbar {
@@ -14,7 +15,6 @@
 }
 
 .main {
-  background-color: #f1f1f1;
   grid-area: main;
   justify-content: center;
 }

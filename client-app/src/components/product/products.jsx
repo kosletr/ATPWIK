@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "../../layout.css"
 import Sidebar from "../utils/sidebar";
-import Card from "../utils/card";
 import ListCards from "../utils/listCards";
 import SearchBar from "../utils/searchBar";
 import Pagination from "../utils/pagination";
@@ -181,7 +180,6 @@ export class Products extends Component {
           />
           <ListCards
             data={products}
-            Component={Card}
             cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
             extraProps={{
               onLike: this.handleLike,

@@ -1,9 +1,13 @@
 import React from "react";
 
 function NotFound() {
-  return (<div style={{ display: "flex", justifyContent: "center", padding: "1rem" }}>
-    <h3>Not Found</h3>
-  </div>)
+  return (
+    <div>
+      <div>
+        <h3 align="center">Not Found</h3>
+      </div>
+    </div>
+  )
 }
 
 export default NotFound;

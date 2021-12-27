@@ -12,7 +12,6 @@ import authService from "./services/authService";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
 import "font-awesome/css/font-awesome.css";
-import "./App.css";
 import "./layout.css"
 
 import React, { Component } from "react";

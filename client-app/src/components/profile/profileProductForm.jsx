@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "../utils/form";
+import Form from "../utils/form/form";
 import Joi from "joi-browser";
 import {
   getUserProductById,
