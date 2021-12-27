@@ -99,6 +99,11 @@ export class ProductPage extends Component {
           <h4 style={{ marginTop: "2rem" }}>Description</h4>
           <p style={{ textAlign: "justify" }}>{description}</p>
           <p> <strong>Price:</strong> {price}€ </p>
+          <button
+            onClick={() => alert("Not implemented yet.")}
+            style={{ width: "100px" }}
+            className="btn btn-primary btn-sm">Buy
+          </button>
         </div>
       </div>
     );

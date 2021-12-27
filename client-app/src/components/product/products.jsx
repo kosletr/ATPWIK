@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../../layout.css"
 import Sidebar from "../utils/sidebar";
 import ListCards from "../utils/listCards";
 import SearchBar from "../utils/searchBar";
@@ -17,7 +16,6 @@ import {
   removeRatingFromProduct,
 } from "../../services/userService";
 import "./products.css";
-import "../product/products.css"
 
 export class Products extends Component {
   state = {
@@ -159,7 +157,7 @@ export class Products extends Component {
 
     return (
       <div className="products-page">
-        <div className="sidebar">
+        <div className="sidebar" style={{ position: "fixed", height: "100vh" }}>
           <Sidebar
             items={this.state.categories}
             selectedItem={this.state.selectedCategory}
@@ -167,6 +165,9 @@ export class Products extends Component {
           />
         </div>
         <div className="products-area">
+          <div>
+            <h3>Products</h3>
+          </div>
           <SearchBar
             value={searchQuery}
             onChange={this.handleSearch}

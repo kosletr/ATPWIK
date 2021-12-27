@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import Table from "../utils/table";
 import Pagination from "../utils/pagination";
 import { paginate } from "../utils/paginate";
@@ -45,8 +46,7 @@ class CategoriesTable extends Component {
       path: "name",
       label: "Name",
       content: category => (`${category.name}`),
-    },
-    { path: "category.name", label: "Category" },
+    }
   ];
 
   deleteColumn = {
@@ -56,7 +56,7 @@ class CategoriesTable extends Component {
         onClick={() => this.handleDelete(category)}
         className="btn btn-danger btn-sm"
       >
-        Remove
+        Delete
       </button>
     ),
   };
@@ -78,7 +78,13 @@ class CategoriesTable extends Component {
     const totalCount = allCategories.length;
     if (allCategories.length === 0) return <p>No categories.</p>;
 
-    const categories = paginate(allCategories, currentPage, pageSize);
+    const sortedCategories = _.orderBy(
+      allCategories,
+      [sortColumn.path],
+      [sortColumn.order]
+    );
+
+    const categories = paginate(sortedCategories, currentPage, pageSize);
 
     return (
       <React.Fragment>

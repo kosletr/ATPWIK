@@ -3,40 +3,36 @@ import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar({ user }) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light">
-      <Link className="navbar-brand" to="/">
+    <nav className="my-navbar">
+      <NavLink className="my-nav-brand" to="/">
         Atswik
-      </Link>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <div className="navbar-nav">
-          <NavLink className="nav-item nav-link" to="/">
-            Home
+      </NavLink>
+      <NavLink className="my-nav-item" to="/">
+        Home
+      </NavLink>
+      <NavLink className="my-nav-item" to="/products">
+        Products
+      </NavLink>
+      {!user && (
+        <React.Fragment>
+          <NavLink className="my-nav-item" to="/login">
+            Login
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/products">
-            Products
+          <NavLink className="my-nav-item" to="/register">
+            Register
           </NavLink>
-          {!user && (
-            <React.Fragment>
-              <NavLink className="nav-item nav-link" to="/login">
-                Login
-              </NavLink>
-              <NavLink className="nav-item nav-link" to="/register">
-                Register
-              </NavLink>
-            </React.Fragment>
-          )}
-          {user && (
-            <React.Fragment>
-              <NavLink className="nav-item nav-link" to="/profile">
-                {user.username}
-              </NavLink>
-              <NavLink className="nav-item nav-link" to="/logout">
-                Logout
-              </NavLink>
-            </React.Fragment>
-          )}
-        </div>
-      </div>
+        </React.Fragment>
+      )}
+      {user && (
+        <React.Fragment>
+          <NavLink className="my-nav-item" to="/profile">
+            {user.username}
+          </NavLink>
+          <NavLink className="my-nav-item" to="/logout">
+            Logout
+          </NavLink>
+        </React.Fragment>
+      )}
     </nav>
   );
 }

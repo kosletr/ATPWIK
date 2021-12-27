@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import Table from "../utils/table";
 import Pagination from "../utils/pagination";
 import { paginate } from "../utils/paginate";
@@ -70,7 +71,7 @@ class ProductsTable extends Component {
         onClick={() => this.handleDelete(product)}
         className="btn btn-danger btn-sm"
       >
-        Remove
+        Delete
       </button>
     ),
   };
@@ -92,7 +93,14 @@ class ProductsTable extends Component {
     const totalCount = allProducts.length;
     if (allProducts.length === 0) return <p>No products.</p>;
 
-    const products = paginate(allProducts, currentPage, pageSize);
+    const sortedProducts = _.orderBy(
+      allProducts,
+      [sortColumn.path],
+      [sortColumn.order]
+    );
+
+
+    const products = paginate(sortedProducts, currentPage, pageSize);
 
     return (
       <React.Fragment>

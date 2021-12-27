@@ -12,7 +12,6 @@ import authService from "./services/authService";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
 import "font-awesome/css/font-awesome.css";
-import "./layout.css"
 
 import React, { Component } from "react";
 import Logout from "./components/auth/logout";
@@ -30,11 +29,9 @@ export class App extends Component {
   render() {
     const { user } = this.state;
     return (
-      <div className="layout">
-        <div className="navbar">
-          <Navbar user={user} />
-        </div>
-        <div className="main">
+      <div className="my-layout">
+        <Navbar user={user} />
+        <div className="my-main">
           <ToastContainer />
           <Switch>
             <Route path="/login" component={LoginForm} />
