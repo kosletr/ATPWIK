@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import Table from "../utils/table";
 import Pagination from "../utils/pagination";
@@ -6,54 +6,52 @@ import { paginate } from "../utils/paginate";
 import { getCategories, removeCategory } from "../../services/categoryService";
 import authService from "../../services/authService";
 
-class CategoriesTable extends Component {
-  state = {
-    categories: [],
-    currentPage: 1,
-    pageSize: 6,
-    sortColumn: { path: "name", order: "asc" },
+function CategoriesTable() {
+  const [categories, setCategories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(6);
+  const [sortColumn, setSortColumn] = useState({ path: "name", order: "asc" });
+
+  useEffect(async () => {
+    const { data: receivedCategories } = await getCategories();
+    setCategories(receivedCategories);
+  }, [])
+
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
-  async componentDidMount() {
-    const { data: categories } = await getCategories();
-    this.setState({ categories });
-  }
-
-  handlePageChange = (page) => {
-    this.setState({ currentPage: page });
-  };
-
-  handleDelete = async (category) => {
-    const originalCategories = this.state.categories;
-    const categories = originalCategories.filter(c => c._id !== category._id);
-    this.setState({ categories });
+  const handleDelete = async (category) => {
+    const originalCategories = { ...categories };
+    setCategories(categories.filter(c => c._id !== category._id));
 
     try {
       await removeCategory(category._id);
     } catch (ex) {
       if (ex.response && ex.response.status === 404)
         console.error("This category has already been removed.");
-      this.setState({ categories });
+      setCategories(originalCategories);
     }
   };
 
-  handleSort = (sortColumn) => {
-    this.setState({ sortColumn });
+  const handleSort = (sortColumn) => {
+    setSortColumn(sortColumn);
   };
 
-  columns = [
+  const columns = [
     {
       path: "name",
       label: "Name",
-      content: category => (`${category.name}`),
+      content: category => category.name,
     }
   ];
 
-  deleteColumn = {
+  const deleteColumn = {
     key: "delete",
     content: (category) => (
       <button
-        onClick={() => this.handleDelete(category)}
+        onClick={() => handleDelete(category)}
         className="btn btn-danger btn-sm"
       >
         Delete
@@ -61,48 +59,38 @@ class CategoriesTable extends Component {
     ),
   };
 
-  constructor() {
-    super();
-    const user = authService.getCurrentUser();
-    if (user && user.isAdmin) this.columns.push(this.deleteColumn);
-  }
+  const user = authService.getCurrentUser();
+  if (user && user.isAdmin) columns.push(deleteColumn);
 
-  render() {
-    const {
-      categories: allCategories,
-      sortColumn,
-      pageSize,
-      currentPage,
-    } = this.state;
+  const allCategories = categories;
 
-    const totalCount = allCategories.length;
-    if (allCategories.length === 0) return <p>No categories.</p>;
+  const totalCount = allCategories.length;
+  if (allCategories.length === 0) return <p>No categories.</p>;
 
-    const sortedCategories = _.orderBy(
-      allCategories,
-      [sortColumn.path],
-      [sortColumn.order]
-    );
+  const sortedCategories = _.orderBy(
+    allCategories,
+    [sortColumn.path],
+    [sortColumn.order]
+  );
 
-    const categories = paginate(sortedCategories, currentPage, pageSize);
+  const pageCategories = paginate(sortedCategories, currentPage, pageSize);
 
-    return (
-      <React.Fragment>
-        <Table
-          columns={this.columns}
-          data={categories}
-          sortColumn={sortColumn}
-          onSort={this.handleSort}
-        />
-        <Pagination
-          itemsCount={totalCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={this.handlePageChange}
-        />
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <Table
+        columns={columns}
+        data={pageCategories}
+        sortColumn={sortColumn}
+        onSort={handleSort}
+      />
+      {(totalCount > pageSize) && <Pagination
+        itemsCount={totalCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />}
+    </React.Fragment>
+  );
 }
 
 export default CategoriesTable;

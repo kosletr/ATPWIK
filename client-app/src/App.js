@@ -13,43 +13,40 @@ import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
 import "font-awesome/css/font-awesome.css";
 
-import React, { Component } from "react";
+import { useState, useEffect } from "react";
 import Logout from "./components/auth/logout";
 import Profile from "./components/profile/profile";
 import ProductPage from "./components/product/productDetailsPage";
 
-export class App extends Component {
-  state = {};
+function App() {
+  const [user, setUser] = useState(null);
 
-  componentDidMount() {
+  useEffect(() => {
     const user = authService.getCurrentUser();
-    user && this.setState({ user });
-  }
+    if (user) setUser(user);
+  }, []);
 
-  render() {
-    const { user } = this.state;
-    return (
-      <div className="my-layout">
-        <Navbar user={user} />
-        <div className="my-main">
-          <ToastContainer />
-          <Switch>
-            <Route path="/login" component={LoginForm} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/register" component={RegisterForm} />
-            <Route path="/profile/products/:id" component={ProfileProductPage} />
-            <Route path="/profile/categories/:id" component={CategoryPage} />
-            <Route path="/profile" render={() => <Profile user={user} />} />
-            <Route path="/products/:id" component={ProductPage} />
-            <Route path="/products" component={Products} />
-            <Route path="/not-found" component={NotFound} />
-            <Route path="/" exact component={HomePage} />
-            <Redirect to="/not-found" />
-          </Switch>
-        </div>
+  return (
+    <div className="my-layout">
+      <Navbar user={user} />
+      <div className="my-main">
+        <ToastContainer />
+        <Switch>
+          <Route path="/login" component={LoginForm} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/register" component={RegisterForm} />
+          <Route path="/profile/products/:id" component={ProfileProductPage} />
+          <Route path="/profile/categories/:id" component={CategoryPage} />
+          <Route path="/profile" render={() => <Profile user={user} />} />
+          <Route path="/products/:id" component={ProductPage} />
+          <Route path="/products" component={Products} />
+          <Route path="/not-found" component={NotFound} />
+          <Route path="/" exact component={HomePage} />
+          <Redirect to="/not-found" />
+        </Switch>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;

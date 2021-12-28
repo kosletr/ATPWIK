@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Sidebar from "../utils/sidebar";
 import ListCards from "../utils/listCards";
 import SearchBar from "../utils/searchBar";
@@ -15,190 +16,182 @@ import {
   addRatingToProduct,
   removeRatingFromProduct,
 } from "../../services/userService";
-import "./products.css";
 
-export class Products extends Component {
-  state = {
-    products: [],
-    categories: [],
-    currentPage: 1,
-    pageSize: 12,
-    searchQuery: "",
-    selectedCategory: null,
-  };
 
-  async componentDidMount() {
-    let { data: categories } = await getCategories();
-    categories = [{ _id: "", name: "All Categories" }, ...categories];
+export default function Products() {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-    const { data: products } = await getProducts();
+  const history = useHistory();
 
-    if (authService.getCurrentUser() != null) {
-      // Get User's Likes
-      const { data: likedProductIds } = await getLikedProductIds();
+  useEffect(() => {
+    (async function () {
+      let { data: receivedCategories } = await getCategories();
+      receivedCategories = [{ _id: "", name: "All Categories" }, ...receivedCategories];
+      const { data: receivedProducts } = await getProducts();
 
-      products.forEach((p) => {
-        p.liked = likedProductIds.includes(p._id);
-      });
+      if (authService.getCurrentUser() != null) {
+        // Get User's Likes
+        const { data: likedProductIds } = await getLikedProductIds();
 
-      // Get User's Ratings
-      const { data: ratings } = await getRatedProductIds();
+        receivedProducts.forEach((p) => {
+          p.liked = likedProductIds.includes(p._id);
+        });
 
-      ratings.forEach((r) => {
-        let p_index = products.findIndex((p) => p._id === r.productId);
-        if (p_index >= 0) products[p_index].rating = r.rating;
-      });
-    }
+        // Get User's Ratings
+        const { data: ratings } = await getRatedProductIds();
 
-    this.setState({ products, categories });
-  }
+        ratings.forEach((r) => {
+          let p_index = receivedProducts.findIndex((p) => p._id === r.productId);
+          if (p_index >= 0) receivedProducts[p_index].rating = r.rating;
+        });
+      }
+      setCategories(receivedCategories);
+      setProducts(receivedProducts);
+    }());
+  }, []);
 
-  handleLike = async ({ currentTarget: input }) => {
+
+
+  async function handleLike({ currentTarget: input }) {
     if (authService.getCurrentUser() == null) {
-      this.props.history.push("/login");
+      history.push("/login");
       return;
     }
-    const products = [...this.state.products];
-    const productId = input.id;
-    const index = products.findIndex((p) => p._id === productId);
-    products[index] = { ...products[index] };
-    products[index].liked = !products[index].liked;
-    this.setState({ products });
 
-    if (products[index].liked) await addLikeToProduct(productId);
-    else await removeLikeFromProduct(productId);
+    const prods = [...products];
+    const productId = input.id;
+    const index = prods.findIndex((p) => p._id === productId);
+    prods[index] = { ...prods[index] };
+    prods[index].liked = !prods[index].liked;
+    setProducts(prods);
+
+    await (!products[index].liked)
+      ? addLikeToProduct(productId)
+      : removeLikeFromProduct(productId);
   };
 
   /* Rating Component */
 
-  handleSaveRating = async (rating, productId) => {
+  async function handleSaveRating(rating, productId) {
     if (authService.getCurrentUser() == null) {
-      this.props.history.push("/login");
+      history.push("/login");
       return;
     }
-    const products = [...this.state.products];
-    const index = products.findIndex((p) => p._id === productId);
-    products[index] = { ...products[index] };
 
-    products[index].rating = rating;
-    this.setState({ products });
+    const prods = [...products]
+    const index = prods.findIndex((p) => p._id === productId);
+    prods[index] = { ...prods[index] };
+
+    prods[index].rating = rating;
+    setProducts(prods);
 
     await addRatingToProduct(productId, rating);
   };
 
-  handleRemoveRating = async (productId) => {
+  async function handleRemoveRating(productId) {
     if (authService.getCurrentUser() == null) {
-      this.props.history.push("/login");
+      history.push("/login");
       return;
     }
-    const products = [...this.state.products];
-    const index = products.findIndex((p) => p._id === productId);
-    products[index] = { ...products[index] };
 
-    products[index].rating = 0;
-    this.setState({ products });
+    const prods = [...products]
+    const index = prods.findIndex((p) => p._id === productId);
+    prods[index] = { ...prods[index] };
+
+    prods[index].rating = 0;
+    setProducts(prods);
 
     await removeRatingFromProduct(productId);
   };
 
   /* Pagination Component */
 
-  handlePageChange = (page) => {
-    this.setState({ currentPage: page });
+  function handlePageChange(page) {
+    setCurrentPage(page);
   };
 
-  handleCategorySelect = (category) => {
-    this.setState({
-      selectedCategory: category,
-      searchQuery: "",
-      currentPage: 1,
-    });
+  function handleCategorySelect(category) {
+    setSelectedCategory(category);
+    setSearchQuery("");
+    setCurrentPage(1);
   };
 
-  handleSearch = (query) => {
-    this.setState({ searchQuery: query, currentPage: 1 });
+  function handleSearch(query) {
+    setSearchQuery(query);
+    setCurrentPage(1);
   };
 
-  getPagedData = () => {
-    const {
-      pageSize,
-      currentPage,
-      selectedCategory,
-      searchQuery,
-      products: allProducts,
-    } = this.state;
+  function getPagedData() {
+    const allProducts = products;
 
     let searchList = [];
     let filtered = allProducts;
     if (selectedCategory && selectedCategory._id)
-      filtered = allProducts.filter(
-        (m) => m.category._id === selectedCategory._id
-      );
+      filtered = allProducts.filter(m => m.category._id === selectedCategory._id);
 
     if (searchQuery) {
-      filtered = filtered.filter((m) =>
-        m.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      filtered = filtered.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase()));
       searchList = filtered.slice(0, 5);
     }
 
-    const products = paginate(filtered, currentPage, pageSize);
-
-    return { totalCount: filtered.length, data: products, searchList };
+    return {
+      totalCount: filtered.length,
+      data: paginate(filtered, currentPage, pageSize),
+      searchList
+    };
   };
 
-  render() {
-    const { length: count } = this.state.products;
-    const { pageSize, currentPage, searchQuery } = this.state;
 
-    if (count === 0) return <div style={{ padding: "2rem" }}><p>There are no products in the database.</p></div>;
+  if (products.length === 0)
+    return <div style={{ padding: "2rem" }}><p>There are no products in the database.</p></div>;
 
-    const { totalCount, data: products, searchList } = this.getPagedData();
-
-    return (
-      <div className="products-page">
-        <div className="sidebar" style={{ position: "fixed", height: "100vh" }}>
-          <Sidebar
-            items={this.state.categories}
-            selectedItem={this.state.selectedCategory}
-            onItemSelect={this.handleCategorySelect}
-          />
-        </div>
-        <div className="products-area">
-          <div>
-            <h3>Products</h3>
-          </div>
-          <SearchBar
-            value={searchQuery}
-            onChange={this.handleSearch}
-            items={searchList}
-          />
-          <Pagination
-            itemsCount={totalCount}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={this.handlePageChange}
-          />
-          <ListCards
-            data={products}
-            cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
-            extraProps={{
-              onLike: this.handleLike,
-              onSaveRating: this.handleSaveRating,
-              onRemoveRating: this.handleRemoveRating,
-            }}
-          />
-          <Pagination
-            itemsCount={totalCount}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={this.handlePageChange}
-          />
-
-        </div>
+  const { totalCount, data: pageProducts, searchList } = getPagedData();
+  return (
+    <div className="products-page">
+      <div className="sidebar" style={{ position: "fixed", height: "100vh" }}>
+        <Sidebar
+          items={categories}
+          selectedItem={selectedCategory}
+          onItemSelect={handleCategorySelect}
+        />
       </div>
-    );
-  }
-}
+      <div className="products-area">
+        <div>
+          <h3>Products</h3>
+        </div>
+        <SearchBar
+          value={searchQuery}
+          onChange={handleSearch}
+          items={searchList}
+        />
+        <Pagination
+          itemsCount={totalCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+        <ListCards
+          data={pageProducts}
+          cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
+          extraProps={{
+            onLike: handleLike,
+            onSaveRating: handleSaveRating,
+            onRemoveRating: handleRemoveRating,
+          }}
+        />
+        <Pagination
+          itemsCount={totalCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
 
-export default Products;
+      </div>
+    </div>
+  );
+}

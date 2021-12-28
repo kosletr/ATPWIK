@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import _ from "lodash";
 import Like from "./like";
 import Rating from "./rating";
-import "./cards.css";
 
 function ListCards({ data, cardDetails, extraProps }) {
   if (!data || data.length === 0) return null;

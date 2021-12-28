@@ -72,7 +72,7 @@ class ProfileProductPage extends Form {
     return {
       _id: product._id,
       title: product.title,
-      category: product.category._id,
+      category: product.category?._id,
       price: product.price,
       shortDesc: product.shortDesc,
       description: product.description,
@@ -89,7 +89,7 @@ class ProfileProductPage extends Form {
   render() {
     return (
       <div className="my-form-layout" >
-      <h1 className="my-form-title">Product Form</h1>
+        <h1 className="my-form-title">Product Form</h1>
         <form className="my-form-body" onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title", "Short Title")}
           {this.renderSelect("category", "Category", this.state.categories)}

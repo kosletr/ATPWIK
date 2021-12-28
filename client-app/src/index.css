@@ -52,3 +52,165 @@
   grid-area: main;
   justify-content: center;
 }
+.my-form-layout {
+  display: flex;
+  margin: 1rem 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.my-form-title {
+  margin: 1rem;
+}
+
+.my-form-body {
+  width: 450px;
+}
+
+.products-page {
+  display: grid;
+  grid-template-areas: "sidebar products";
+  grid-template-columns: 20fr 80fr;
+  margin-right: 5rem;
+}
+
+
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 350px;
+  background-color: #f6f8fa;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 1300px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.products-area {
+  grid-area: products;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 1400px;
+  justify-content: space-evenly;
+}
+
+.my-card {
+  width: 300px;
+  height: 450px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 10px lightgrey;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.my-card-header {
+  padding: 0 1rem;
+  display: flex;
+  height: 10%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.my-card-body {
+  margin: 0.5rem 0;
+  padding: 0 1rem;
+  display: flex;
+  height: 80%;
+  flex-direction: column;
+}
+
+.my-card-img {
+  height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.my-card-img img {
+  height:fit-content;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+}
+
+.my-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  height: 15%;
+  text-decoration: none;
+}
+
+.my-card-description {
+  text-align: center;
+  font-size: 1rem;
+  height: 50px;
+  overflow: hidden;
+}
+
+.my-card-price {
+  align-self: flex-end;
+  height: 8%;
+  color: green;
+}
+
+.my-card-footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 10%;
+  padding-left: 1rem;
+}
+
+.my-pagination {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 1rem;
+}
+
+.my-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  color: #363636;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+}
+
+.my-current-page {
+  background-color: #f1f1f1;
+  color: #1c7ece;
+  font-weight: bold;
+}
+
+.my-page:hover {
+  background-color: #f9f9f9;
+}
