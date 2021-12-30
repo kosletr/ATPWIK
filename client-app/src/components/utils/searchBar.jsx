@@ -12,7 +12,8 @@ function SearchBar({ value, onChange, items }) {
         onChange={e => onChange(e.currentTarget.value)}
         list="datalist"
         style={{
-          height: "50px", width: "454px", padding: "0 20px 0 20px",
+          height: "60px", width: "454px", padding: "0 20px",
+          borderRadius: "30px", marginBottom: "1rem",
           fontSize: "20px", fontFamily: "Arial, FontAwesome"
         }} />
       <datalist id="datalist">

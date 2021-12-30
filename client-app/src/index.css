@@ -1,6 +1,18 @@
-#root > div{
-  height: 99vh;
+:root {
+  --bg-color: #f1f1f1;
+  --font-color: black;
+  --navbar-bg-color: #f1f1f1;
+  --navbar-color: black;
+  --sidebar-bg-color: #f1f1f1;
+  
+  background-color: var(--bg-color);
 }
+
+#root {
+  color: var(--font-color);
+  background-color: var(--bg-color);
+}
+
 
 body {
   min-width: 550px;
@@ -13,7 +25,7 @@ body {
     "main";
   grid-template-rows: 50px auto;
   grid-template-columns: auto;
-  height: 90vh;
+  height: 100%;
 }
 
 .my-container {
@@ -32,13 +44,13 @@ body {
   height: 50px;
   justify-content: space-between;
   align-items: center;
-  background-color: #24292f;
+  background-color: var(--navbar-bg-color);
   z-index: 1;
 }
 
 .collapse-btn {
-  background-color: #24292f;
-  color: white;
+  background-color: var(--navbar-bg-color);
+  color: var(--navbar-color);
   border: none;
   display: none;
 }
@@ -61,16 +73,17 @@ body {
   .nav-group.my-collapse {
     width: 100vw;
     display: flex;
+    border-radius: 15px;
     flex-direction: column;    
     align-items: center;
-    background-color: #24292f;
+    background-color: var(--navbar-bg-color);
   }
   
 }
 
 .my-nav-brand {
   font-size: 1.4rem;
-  color: white;
+  color: var(--navbar-color);
   padding: 1rem;
 }
 
@@ -79,8 +92,8 @@ body {
   text-decoration: none;
 }
 
-.my-nav-item {
-  color: white;
+.my-nav-item {  
+  color: var(--navbar-color);
   padding: 1rem;
 }
 
@@ -96,7 +109,7 @@ body {
 .my-main {
   grid-area: main;
   height: 100%;
-  margin: 0.5rem;
+  margin: 1rem 0;
   justify-content: center;
 }
 .my-form-layout {
@@ -113,18 +126,18 @@ body {
   grid-template-columns: 350px auto;
 }
 
-
 .sidebar {
   grid-area: sidebar;
   display: flex;
-  border-radius: 15px;
+  border-radius: 8px;
   flex-direction: column;
   justify-content: flex-start;
   width: 350px;
-  height: calc(100% - 8px);
-  background-color: #f6f8fa;
+  height: calc(100% - 16px);
+  /* border: 2px solid lightblue; */
+  background-color: var(--sidebar-bg-color);
   padding: 2rem;
-  margin-left: -0.5rem;
+  margin-left: 0.1rem;
 }
 
 @media screen and (max-width: 930px) {
@@ -146,7 +159,11 @@ body {
 
 .products-area {
   grid-area: products;
+  border-radius: 10px;
+  /* border: 5px solid #f6f8ff; */
+  /* background-color: #fcfcff; */
   margin: 0 1rem;
+  height: calc(100% - 16px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -155,16 +172,15 @@ body {
 .my-card-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 2rem;
+  gap: 2rem;
   border-radius: 10px;
   max-width: 1400px;
   justify-content: center;
 }
 
 .my-card {
-  width: 300px;
-  height: 450px;
+  width: 295px;
+  height: 495px;
   border-radius: 10px;
   box-shadow: 0px 0px 20px 10px lightgrey;
   box-sizing: border-box;
