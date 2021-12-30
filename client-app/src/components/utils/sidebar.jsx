@@ -9,7 +9,7 @@ const Sidebar = ({
   onItemSelect,
 }) => {
   return (
-    <React.Fragment>
+    <>
       <h5 style={{ margin: "1rem 0" }}>Filters</h5>
       <SidebarGroup
         items={items}
@@ -26,7 +26,7 @@ const Sidebar = ({
         <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
         <li style={{ margin: "0.5rem 0" }}><Link to="/">To do</Link></li>
       </ul> */}
-    </React.Fragment>
+    </>
   );
 };
 
@@ -43,7 +43,7 @@ function SidebarGroup({
   onItemSelect,
 }) {
   return (
-    <React.Fragment>
+    <>
       <h6 style={{ margin: "0.5rem 0" }} >Categories</h6>
       <div>
         <ul style={{ listStyleType: "none" }}>
@@ -65,7 +65,7 @@ function SidebarGroup({
           ))}
         </ul>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 

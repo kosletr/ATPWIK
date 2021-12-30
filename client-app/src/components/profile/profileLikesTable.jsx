@@ -66,6 +66,7 @@ class ProductsTable extends Component {
 
   deleteColumn = {
     key: "delete",
+    align: "center",
     content: (product) => (
       <button
         onClick={() => this.handleDelete(product)}
@@ -99,11 +100,10 @@ class ProductsTable extends Component {
       [sortColumn.order]
     );
 
-
     const products = paginate(sortedProducts, currentPage, pageSize);
 
     return (
-      <React.Fragment>
+      <>
         <Table
           columns={this.columns}
           data={products}
@@ -116,7 +116,7 @@ class ProductsTable extends Component {
           currentPage={currentPage}
           onPageChange={this.handlePageChange}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

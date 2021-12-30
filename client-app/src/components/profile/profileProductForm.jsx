@@ -89,8 +89,8 @@ class ProfileProductPage extends Form {
   render() {
     return (
       <div className="my-form-layout" >
-        <h1 className="my-form-title">Product Form</h1>
-        <form className="my-form-body" onSubmit={this.handleSubmit}>
+        <h1 className="my-container">Product Form</h1>
+        <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title", "Short Title")}
           {this.renderSelect("category", "Category", this.state.categories)}
           {this.renderInput("price", "Price", "Price in Euros", "number")}

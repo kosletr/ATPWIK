@@ -23,7 +23,7 @@ function Profile({ user }) {
       <h4 style={{ padding: "2rem 0" }}>My Favourites</h4>
       <ProfileLikesTable />
       {user.isAdmin && (
-        <React.Fragment>
+        <>
           <h4 style={{ padding: "2rem 0" }}>Categories</h4>
           <Link to="/profile/categories/new" className="btn btn-primary">
             Add Category
@@ -31,7 +31,7 @@ function Profile({ user }) {
           <div style={{ paddingTop: "2rem" }}>
             <CategoriesTable />
           </div>
-        </React.Fragment>
+        </>
       )}
     </div>
   );

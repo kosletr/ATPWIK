@@ -153,7 +153,7 @@ export default function Products() {
   const { totalCount, data: pageProducts, searchList } = getPagedData();
   return (
     <div className="products-page">
-      <div className="sidebar" style={{ position: "fixed", height: "100vh" }}>
+      <div className="sidebar">
         <Sidebar
           items={categories}
           selectedItem={selectedCategory}
@@ -161,7 +161,7 @@ export default function Products() {
         />
       </div>
       <div className="products-area">
-        <div>
+        <div className="my-container">
           <h3>Products</h3>
         </div>
         <SearchBar
@@ -175,15 +175,17 @@ export default function Products() {
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />
-        <ListCards
-          data={pageProducts}
-          cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
-          extraProps={{
-            onLike: handleLike,
-            onSaveRating: handleSaveRating,
-            onRemoveRating: handleRemoveRating,
-          }}
-        />
+        <div className="my-container">
+          <ListCards
+            data={pageProducts}
+            cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
+            extraProps={{
+              onLike: handleLike,
+              onSaveRating: handleSaveRating,
+              onRemoveRating: handleRemoveRating,
+            }}
+          />
+        </div>
         <Pagination
           itemsCount={totalCount}
           pageSize={pageSize}

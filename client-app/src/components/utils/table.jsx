@@ -4,7 +4,7 @@ import _ from "lodash";
 function Table({ columns, sortColumn, onSort, data }) {
   return (
     <table className="table" style={{
-      width: "75rem",
+      width: "1000px",
       borderRadius: "10px",
       overflow: "hidden",
       borderStyle: "hidden",
@@ -33,7 +33,7 @@ function TableBody({ data, columns }) {
         return (
           <tr key={item._id}>
             {columns.map((column) => (
-              <td key={createKey(item, column)}>
+              <td key={createKey(item, column)}  style={{ textAlign: column.align }}>
                 {renderCell(item, column)}
               </td>
             ))}
@@ -67,14 +67,14 @@ function TableHeader({ sortColumn, onSort, columns }) {
   };
 
   return (
-    <thead style={{ backgroundColor: "#f1f1f1" }}>
+    <thead>
       <tr>
         {columns.map((column) => (
           <th
             className="clickable"
             key={column.path || column.key}
             onClick={() => column.label ? raiseSort(column.path) : null}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", textAlign: "center" }}
           >
             {column.label} {renderSortIcon(column)}
           </th>

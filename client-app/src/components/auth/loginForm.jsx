@@ -17,6 +17,11 @@ class LoginForm extends Form {
     password: Joi.string().min(6).required().label("Password"),
   };
 
+  componentDidMount() {
+    if (authService.getCurrentUser() !== null)
+      this.props.history.push("/profile");
+  }
+
   doSubmit = async () => {
     try {
       const { username, password } = this.state.data;
@@ -33,12 +38,8 @@ class LoginForm extends Form {
       }
     }
   };
+
   render() {
-
-    if (authService.getCurrentUser() !== null) {
-      this.props.history.push("/profile");
-    }
-
     return (
       <div className="my-form-layout" >
         <div className="my-form-title">
