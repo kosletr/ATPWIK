@@ -42,9 +42,9 @@ function Card({
         <span className="badge badge-info" style={{ alignSelf: "center" }}>{owner.username}</span>
       </div>
       <div className="my-card-body">
-        <div className="my-card-img">
+        <Link className="my-card-img" to={`/products/${_id}`}>
           <img className="my-card-img-top" src={imageURL} alt={title} />
-        </div>
+        </Link>
         <Link className="my-card-title" to={`/products/${_id}`}>{title}</Link>
         <div className="my-card-description">
           <p>{shortDesc}</p>

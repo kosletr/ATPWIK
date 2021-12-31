@@ -66,7 +66,6 @@ export class Form extends Component {
     const { data, errors } = this.state;
     return (
       <Input
-        style={{ width: "250%", maxWidth: "450px", height: "3rem" }}
         type={type}
         name={name}
         label={label}
@@ -82,7 +81,6 @@ export class Form extends Component {
     const { data, errors } = this.state;
     return (
       <TextArea
-        style={{ width: "250%", maxWidth: "450px" }}
         name={name}
         label={label}
         value={data[name]}
@@ -97,7 +95,6 @@ export class Form extends Component {
 
     return (
       <Select
-        style={{ width: "250%", maxWidth: "450px", height: "3rem"  }}
         name={name}
         value={data[name]}
         label={label}

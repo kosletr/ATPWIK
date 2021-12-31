@@ -19,6 +19,11 @@ class RegisterForm extends Form {
       .options({ language: { any: { allowOnly: "must match password" } } }).label("Confirm password"),
   };
 
+  componentDidMount() {
+    if (authService.getCurrentUser() !== null)
+      this.props.history.push("/profile");
+  }
+
   doSubmit = async () => {
     try {
       const { firstname, lastname, username, password, email } = this.state.data;

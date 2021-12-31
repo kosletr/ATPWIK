@@ -12,13 +12,13 @@ function SearchBar({ value, onChange, items }) {
         onChange={e => onChange(e.currentTarget.value)}
         list="datalist"
         style={{
-          height: "60px", width: "454px", padding: "0 20px",
-          borderRadius: "30px", marginBottom: "1rem",
-          fontSize: "20px", fontFamily: "Arial, FontAwesome"
+          height: "50px", width: "454px",
+          padding: "0 20px", borderRadius: "30px",
+          fontSize: "1.2rem", fontFamily: "Arial, FontAwesome"
         }} />
       <datalist id="datalist">
-        {items.map((i) => (
-          <option key={i.id} value={i.title}></option>
+        {items.map((item) => (
+          <option key={item._id} value={item.title}></option>
         ))}
       </datalist>
     </div>

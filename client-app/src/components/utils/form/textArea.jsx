@@ -2,7 +2,7 @@ import React from "react";
 
 function TextArea({ name, label, error, ...rest }) {
   return (
-    <div className="form-group" style={{ marginRight: "10rem"}}>
+    <div className="form-group">
       <label htmlFor={name}>{label}</label>
       <textarea
         className="form-control"

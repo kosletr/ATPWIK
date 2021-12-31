@@ -22,7 +22,7 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize] = useState(12);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -152,7 +152,7 @@ export default function Products() {
 
   const { totalCount, data: pageProducts, searchList } = getPagedData();
   return (
-    <div className="products-page">
+    <>
       <div className="sidebar">
         <Sidebar
           items={categories}
@@ -160,7 +160,7 @@ export default function Products() {
           onItemSelect={handleCategorySelect}
         />
       </div>
-      <div className="products-area">
+      <div className="products-page">
         <div className="my-container">
           <h3>Products</h3>
         </div>
@@ -169,31 +169,33 @@ export default function Products() {
           onChange={handleSearch}
           items={searchList}
         />
-        <Pagination
-          itemsCount={totalCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
-        <div className="my-container">
-          <ListCards
-            data={pageProducts}
-            cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
-            extraProps={{
-              onLike: handleLike,
-              onSaveRating: handleSaveRating,
-              onRemoveRating: handleRemoveRating,
-            }}
+        <div className="products-area">
+          <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
           />
-        </div>
-        <Pagination
-          itemsCount={totalCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
+          <div className="my-container">
+            <ListCards
+              data={pageProducts}
+              cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
+              extraProps={{
+                onLike: handleLike,
+                onSaveRating: handleSaveRating,
+                onRemoveRating: handleRemoveRating,
+              }}
+            />
+          </div>
+          <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
 
+        </div>
       </div>
-    </div>
+    </>
   );
 }

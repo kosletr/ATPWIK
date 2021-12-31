@@ -29,8 +29,8 @@ function App() {
   return (
     <div className="my-layout">
       <Navbar user={user} />
-      <div className="my-main">
         <ToastContainer />
+      <div className="my-main">
         <Switch>
           <Route path="/login" component={LoginForm} />
           <Route path="/logout" component={Logout} />

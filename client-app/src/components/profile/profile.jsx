@@ -13,25 +13,29 @@ function Profile({ user }) {
   }
 
   return (
-    <div className="container">
-      <h3 style={{ padding: "2rem 0" }}>Hello {user.firstname} {user.lastname}</h3>
-      <Link to="/profile/products/new" className="btn btn-primary">
-        Add Product
-      </Link>
-      <h4 style={{ padding: "2rem 0" }}>My Products</h4>
-      <ProfileProductsTable ownerId={user._id} />
-      <h4 style={{ padding: "2rem 0" }}>My Favourites</h4>
-      <ProfileLikesTable />
+    <div>
+      <div className="profile-section">
+        <h3>Hello {user.firstname} {user.lastname}</h3>
+      </div>
+      <div className="profile-section">
+        <Link to="/profile/products/new" className="btn btn-primary">
+          Add Product
+        </Link>
+        <h4>My Products</h4>
+        <ProfileProductsTable ownerId={user._id} />
+      </div>
+      <div className="profile-section">
+        <h4>My Favourites</h4>
+        <ProfileLikesTable />
+      </div>
       {user.isAdmin && (
-        <>
-          <h4 style={{ padding: "2rem 0" }}>Categories</h4>
+        <div className="profile-section">
+          <h4>Categories</h4>
           <Link to="/profile/categories/new" className="btn btn-primary">
             Add Category
           </Link>
-          <div style={{ paddingTop: "2rem" }}>
-            <CategoriesTable />
-          </div>
-        </>
+          <CategoriesTable />
+        </div>
       )}
     </div>
   );

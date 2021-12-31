@@ -3,13 +3,7 @@ import _ from "lodash";
 
 function Table({ columns, sortColumn, onSort, data }) {
   return (
-    <table className="table" style={{
-      width: "1000px",
-      borderRadius: "10px",
-      overflow: "hidden",
-      borderStyle: "hidden",
-      boxShadow: "0 0 0 1px lightgray"
-    }}>
+    <table className="table" style={{ width: "1000px" }}>
       <TableHeader columns={columns} sortColumn={sortColumn} onSort={onSort} />
       <TableBody columns={columns} data={data} />
     </table>
@@ -33,7 +27,7 @@ function TableBody({ data, columns }) {
         return (
           <tr key={item._id}>
             {columns.map((column) => (
-              <td key={createKey(item, column)}  style={{ textAlign: column.align }}>
+              <td key={createKey(item, column)} style={{ textAlign: column.align }}>
                 {renderCell(item, column)}
               </td>
             ))}
@@ -74,7 +68,7 @@ function TableHeader({ sortColumn, onSort, columns }) {
             className="clickable"
             key={column.path || column.key}
             onClick={() => column.label ? raiseSort(column.path) : null}
-            style={{ cursor: "pointer", textAlign: "center" }}
+            style={{ cursor: "pointer" }}
           >
             {column.label} {renderSortIcon(column)}
           </th>
