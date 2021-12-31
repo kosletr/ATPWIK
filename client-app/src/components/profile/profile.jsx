@@ -18,10 +18,10 @@ function Profile({ user }) {
         <h3>Hello {user.firstname} {user.lastname}</h3>
       </div>
       <div className="profile-section">
+        <h4>My Products</h4>
         <Link to="/profile/products/new" className="btn btn-primary">
           Add Product
         </Link>
-        <h4>My Products</h4>
         <ProfileProductsTable ownerId={user._id} />
       </div>
       <div className="profile-section">
@@ -29,13 +29,18 @@ function Profile({ user }) {
         <ProfileLikesTable />
       </div>
       {user.isAdmin && (
-        <div className="profile-section">
-          <h4>Categories</h4>
-          <Link to="/profile/categories/new" className="btn btn-primary">
-            Add Category
-          </Link>
-          <CategoriesTable />
-        </div>
+        <>
+          <div className="profile-section">
+            <h1>Administrator Panel</h1>
+          </div>
+          <div className="profile-section">
+            <h4>Categories</h4>
+            <Link to="/profile/categories/new" className="btn btn-primary">
+              Add Category
+            </Link>
+            <CategoriesTable />
+          </div>
+        </>
       )}
     </div>
   );
