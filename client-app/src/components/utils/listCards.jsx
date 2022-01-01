@@ -50,7 +50,7 @@ function Card({
           <p>{shortDesc}</p>
         </div>
         <div className="my-card-price">
-          <p>{price}€</p>
+          <p>{parseFloat(price).toFixed(2)}€</p>
         </div>
       </div>
       <div className="my-card-footer">

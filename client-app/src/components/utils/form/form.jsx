@@ -62,11 +62,12 @@ export class Form extends Component {
     );
   };
 
-  renderInput = (name, label, placeholder, type = "text") => {
+  renderInput = (name, label, placeholder, type = "text", step = null) => {
     const { data, errors } = this.state;
     return (
       <Input
         type={type}
+        step={step}
         name={name}
         label={label}
         value={data[name]}

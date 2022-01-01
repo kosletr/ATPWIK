@@ -161,9 +161,6 @@ export default function Products() {
         />
       </div>
       <div className="products-page">
-        <div className="my-container">
-          <h3>Products</h3>
-        </div>
         <SearchBar
           value={searchQuery}
           onChange={handleSearch}

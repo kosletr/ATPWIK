@@ -8,40 +8,64 @@ export default function Navbar({ user }) {
   return (
     <nav className="my-navbar">
       <button className="collapse-btn" onClick={() => setCollapsed(!collapsed)}>
-        <i className="fa fa-bars"/>
+        <i className="fa fa-bars" />
       </button>
-      <div className={"nav-group " + (collapsed ? "my-collapse" : "")}>
-        <NavLink className="my-nav-brand" to="/">
-          Atswik
-        </NavLink>
-        <NavLink className="my-nav-item" to="/">
-          Home
-        </NavLink>
-        <NavLink className="my-nav-item" to="/products">
-          Products
-        </NavLink>
-      </div>
-      <div className={"nav-group " + (collapsed ? "my-collapse" : "")}>
-        {!user && (
-          <>
-            <NavLink className="my-nav-item" to="/login">
-              Login
+      <div className={"nav-body " + (collapsed ? "my-collapse" : "")}>
+        <div className="nav-group">
+          <div>
+            <NavLink className="my-nav-brand" exact to="/">
+              Atswik
             </NavLink>
-            <NavLink className="my-nav-item" to="/register">
-              Register
+          </div>
+          <div>
+            <NavLink
+              className={isActive =>
+                "my-nav-item" + (isActive ? "" : " my-nav-item-active")
+              } exact to="/">
+              Home
             </NavLink>
-          </>
-        )}
-        {user && (
-          <>
-            <NavLink className="my-nav-item" to="/profile">
-              {user.username}
+            <NavLink
+              className={isActive =>
+                "my-nav-item" + (isActive ? "" : " my-nav-item-active")
+              } exact to="/products">
+              Products
             </NavLink>
-            <NavLink className="my-nav-item" to="/logout">
-              Logout
-            </NavLink>
-          </>
-        )}
+          </div>
+        </div>
+        <div className="nav-group">
+          {!user && (
+            <>
+              <NavLink
+                className={isActive =>
+                  "my-nav-item" + (isActive ? "" : " my-nav-item-active")
+                } exact to="/login">
+                Login
+              </NavLink>
+              <NavLink
+                className={isActive =>
+                  "my-nav-item" + (isActive ? "" : " my-nav-item-active")
+                } exact to="/register">
+                Register
+              </NavLink>
+            </>
+          )}
+          {user && (
+            <>
+              <NavLink
+                className={isActive =>
+                  "my-nav-item" + (isActive ? "" : " my-nav-item-active")
+                } exact to="/profile">
+                {user.username}
+              </NavLink>
+              <NavLink
+                className={isActive =>
+                  "my-nav-item" + (isActive ? "" : " my-nav-item-active")
+                } exact to="/logout">
+                Logout
+              </NavLink>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

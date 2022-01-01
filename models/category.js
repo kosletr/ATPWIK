@@ -8,14 +8,14 @@ const Category = mongoose.model(
       type: String,
       required: true,
       minlength: 2,
-      maxlength: 10,
+      maxlength: 20,
     },
   })
 );
 
 const validateCategory = (body) => {
   const schema = Joi.object({
-    name: Joi.string().min(2).max(10).required(),
+    name: Joi.string().min(2).max(20).required(),
   });
   return schema.validate(body);
 };

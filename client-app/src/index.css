@@ -62,12 +62,10 @@ body {
   grid-area: navbar;
   position: fixed;
   box-shadow: 0px 0px 5px 1px lightgray;
-  display: flex;
   border-radius: 2px;
   width: 100%;
   height: 56px;
-  justify-content: space-between;
-  align-items: center;
+  padding: 0 1rem;
   background-color: var(--navbar-bg-color);
   z-index: 1;
 }
@@ -79,10 +77,21 @@ body {
   display: none;
 }
 
+.nav-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 @media screen and (max-width: 600px) {
   .collapse-btn {
     display: block;
-    margin: 10px;
+    margin: 1rem;
   }
 
   .my-navbar {
@@ -91,23 +100,33 @@ body {
     align-items: flex-start;
   }
 
-  .nav-group {
+  .nav-body {
     display: none;
   }
-  .nav-group.my-collapse {
-    width: 100vw;
+
+  .nav-body.my-collapse {
+    width: 480px;
     display: flex;
-    border-radius: 15px;
     flex-direction: column;
     align-items: center;
+    padding: 1rem;
+    border-radius: 12px;
     background-color: var(--navbar-bg-color);
+    box-shadow: 0px 0px 10px 5px lightgray;
+  }
+
+  .nav-group,
+  .nav-group > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
 .my-nav-brand {
   font-size: 1.4rem;
   color: var(--navbar-color);
-  padding: 1rem;
+  padding: 0 0.2rem;
 }
 
 .my-nav-brand:hover {
@@ -116,8 +135,13 @@ body {
 }
 
 .my-nav-item {
-  color: var(--navbar-color);
-  padding: 1rem;
+  color: black;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.my-nav-item-active {
+  color: #909090;
 }
 
 .my-nav-item:hover {
@@ -152,11 +176,11 @@ body {
   border-radius: 8px;
   flex-direction: column;
   justify-content: flex-start;
-  width: 350px;
+  width: 300px;
   height: calc(100% - 16px);
   /* border: 2px solid lightblue; */
   background-color: var(--sidebar-bg-color);
-  padding: 2rem;
+  padding: 1.5rem;
   margin-left: 0.1rem;
   flex-shrink: 0;
 }
@@ -178,7 +202,7 @@ body {
   border-radius: 10px;
   /* border: 5px solid #f6f8ff; */
   /* background-color: #fcfcff; */
-  margin: 0 1rem;
+  margin: 1.5rem;
   height: calc(100% - 16px);
   display: flex;
   flex-direction: column;
@@ -193,7 +217,6 @@ body {
   align-items: center;
   border-radius: 10px;
   background-color: var(--products-area-color);
-  margin: 2rem;
 }
 
 .my-card-list {
@@ -214,7 +237,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  background-color: #f5f5f5;
+  background-color: white;
 }
 
 .my-card-header {

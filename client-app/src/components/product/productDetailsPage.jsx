@@ -83,7 +83,7 @@ export function ProductPage() {
             onClick={() => alert("Not implemented yet.")}
           > Buy now
           </button>
-          <p> <strong>Price:</strong> {price}€ </p>
+          <p> <strong>Price:</strong> {parseFloat(price).toFixed(2)}€ </p>
         </div>
       </div>
     </div>

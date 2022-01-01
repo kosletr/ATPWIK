@@ -43,7 +43,7 @@ class RegisterForm extends Form {
     return (
       <div className="my-form-layout" >
         <div className="my-form-title">
-          <h3>Register Page</h3>
+          <h3>Register</h3>
         </div>
         <div className="my-form-body">
           <form onSubmit={this.handleSubmit}>

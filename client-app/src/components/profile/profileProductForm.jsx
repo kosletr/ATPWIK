@@ -93,7 +93,7 @@ class ProfileProductPage extends Form {
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title", "Short Title")}
           {this.renderSelect("category", "Category", this.state.categories)}
-          {this.renderInput("price", "Price", "Price in Euros", "number")}
+          {this.renderInput("price", "Price", "Price in Euros", "number", "0.01")}
           {this.renderInput("shortDesc", "Short Description", "Short Description")}
           {this.renderTextArea("description", "Full Description")}
           {this.renderInput("imageURL", "Image URL", "http(s)://example.com/image.jpg")}

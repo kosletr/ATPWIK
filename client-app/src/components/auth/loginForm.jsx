@@ -43,7 +43,7 @@ class LoginForm extends Form {
     return (
       <div className="my-form-layout" >
         <div className="my-form-title">
-          <h3>Login Page</h3>
+          <h3>Login</h3>
         </div>
         <div className="form-group">
           <form onSubmit={this.handleSubmit}>
