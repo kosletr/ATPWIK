@@ -5,15 +5,25 @@ A Mongodb-Express-Reactjs-Nodejs full stack web application built using mostly p
 # How to run the app
 
 1. To run the app you need to have Node.js (tested for versions >= 12) and MongoDB installed.
-2. Install server and client dependencies by running:
+
+2. Install server dependencies by running:
 
 ```bash
-	npm i && cd client-app && npm i
+	cd server-app
+	npm i
 ```
 
-3. To start both the client and the server app, in the **root directory** run:
+3. Install server dependencies by running:
 
 ```bash
+	cd ../client-app
+	npm i
+```
+
+4. Start both the client and the server app, by running:
+
+```bash
+	cd ../server-app
 	npm run dev
 ```
 

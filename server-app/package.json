@@ -4,23 +4,20 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
-    "concurrently": "^6.5.1",
+    "concurrently": "^7.0.0",
     "config": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "joi": "^17.5.0",
-    "joi-browser": "^13.4.0",
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
-    "jwt-decode": "^3.1.2",
-    "mongoose": "^6.1.3",
+    "mongoose": "^6.1.4",
     "nodemon": "^2.0.15"
   },
   "scripts": {
     "start": "nodemon --ignore './public'",
-    "client": "npm start --prefix client-app",
+    "client": "npm start --prefix ../client-app",
     "dev": "concurrently \"npm start\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
