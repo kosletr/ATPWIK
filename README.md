@@ -9,22 +9,20 @@ A Mongodb-Express-Reactjs-Nodejs full stack web application built using mostly p
 2. Install server dependencies by running:
 
 ```bash
-	cd server-app
-	npm i
+cd server-app && npm i && cd ..
 ```
 
-3. Install server dependencies by running:
+3. Install client dependencies by running:
 
 ```bash
-	cd ../client-app
-	npm i
+cd client-app && npm i && cd ..
 ```
 
 4. Start both the client and the server app, by running:
 
 ```bash
-	cd ../server-app
-	npm run dev
+cd server-app
+npm run dev
 ```
 
 docker-compose yaml file comming soon...
