@@ -14,7 +14,7 @@ export default function Navbar({ user }) {
         <div className="nav-group">
           <div>
             <NavLink className="my-nav-brand" exact to="/">
-              Atswik
+              Atpwik
             </NavLink>
           </div>
           <div>
