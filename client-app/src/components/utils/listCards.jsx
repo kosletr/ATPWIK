@@ -31,10 +31,11 @@ function Card({
   owner,
   liked,
   onLike,
-  rating,
-  onSaveRating,
-  onRemoveRating,
+  rating
 }) {
+
+  const [sumOfRatings, ratingsCount] = rating;
+
   return (
     <div className="my-card">
       <div className="my-card-header">
@@ -54,7 +55,12 @@ function Card({
         </div>
       </div>
       <div className="my-card-footer">
-        <Rating _id={_id} rating={rating} onSaveRating={onSaveRating} onRemoveRating={onRemoveRating} />
+        <Rating _id={_id} rating={ratingsCount > 0 ? Math.round(sumOfRatings / ratingsCount) : 0} hoverEnabled={false} />
+        <span
+          style={{ cursor: "pointer", fontSize: "0.9rem", color: "#707070", margin: "0 0 0 4px" }}
+        >
+          {ratingsCount > 0 ? `(${ratingsCount})` : ""}
+        </span>
       </div>
     </div>
   );

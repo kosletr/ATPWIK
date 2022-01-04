@@ -12,9 +12,7 @@ import {
   getLikedProductIds,
   addLikeToProduct,
   removeLikeFromProduct,
-  getRatedProductIds,
-  addRatingToProduct,
-  removeRatingFromProduct,
+  getTotalRatings
 } from "../../services/userService";
 
 
@@ -37,19 +35,15 @@ export default function Products() {
       if (authService.getCurrentUser() != null) {
         // Get User's Likes
         const { data: likedProductIds } = await getLikedProductIds();
-
-        receivedProducts.forEach((p) => {
-          p.liked = likedProductIds.includes(p._id);
-        });
-
-        // Get User's Ratings
-        const { data: ratings } = await getRatedProductIds();
-
-        ratings.forEach((r) => {
-          let p_index = receivedProducts.findIndex((p) => p._id === r.productId);
-          if (p_index >= 0) receivedProducts[p_index].rating = r.rating;
-        });
+        receivedProducts.forEach(p => p.liked = likedProductIds.includes(p._id));
       }
+      // Get Total Ratings
+      const { data: ratings } = await getTotalRatings();
+
+      receivedProducts.forEach(p => {
+        const product = ratings.find(ratedProd => p._id === ratedProd._id);
+        p.rating = product ? [product.total, product.size] : [0, 0];
+      });
       setCategories(receivedCategories);
       setProducts(receivedProducts);
     }());
@@ -73,40 +67,6 @@ export default function Products() {
     await (!products[index].liked)
       ? addLikeToProduct(productId)
       : removeLikeFromProduct(productId);
-  };
-
-  /* Rating Component */
-
-  async function handleSaveRating(rating, productId) {
-    if (authService.getCurrentUser() == null) {
-      history.push("/login");
-      return;
-    }
-
-    const prods = [...products]
-    const index = prods.findIndex((p) => p._id === productId);
-    prods[index] = { ...prods[index] };
-
-    prods[index].rating = rating;
-    setProducts(prods);
-
-    await addRatingToProduct(productId, rating);
-  };
-
-  async function handleRemoveRating(productId) {
-    if (authService.getCurrentUser() == null) {
-      history.push("/login");
-      return;
-    }
-
-    const prods = [...products]
-    const index = prods.findIndex((p) => p._id === productId);
-    prods[index] = { ...prods[index] };
-
-    prods[index].rating = 0;
-    setProducts(prods);
-
-    await removeRatingFromProduct(productId);
   };
 
   /* Pagination Component */
@@ -178,9 +138,7 @@ export default function Products() {
               data={pageProducts}
               cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
               extraProps={{
-                onLike: handleLike,
-                onSaveRating: handleSaveRating,
-                onRemoveRating: handleRemoveRating,
+                onLike: handleLike
               }}
             />
           </div>

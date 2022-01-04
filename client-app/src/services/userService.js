@@ -1,6 +1,7 @@
 import http from "./httpService";
 import config from "../config.json";
 
+const productsUrl = config.apiUrl + "/products/ratings/stats";
 const userProductsUrl = config.apiUrl + "/users/products";
 const userLikesUrl = config.apiUrl + "/users/likes";
 const userRatingsUrl = config.apiUrl + "/users/ratings";
@@ -63,4 +64,8 @@ export function addRatingToProduct(productId, rating) {
 
 export function removeRatingFromProduct(productId) {
   return http.delete(`${userRatingsUrl}/${productId}`);
+}
+
+export function getTotalRatings() {
+  return http.get(productsUrl);
 }

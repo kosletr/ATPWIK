@@ -73,8 +73,13 @@ export function ProductPage() {
           </span>
         </div>
         <div className="product-details-description">
-          <Rating _id={_id} rating={rating}
-            onSaveRating={handleSaveRating} onRemoveRating={handleRemoveRating} />
+          <div style={{ display: "flex" }}>
+            <p style={{ margin: "0 8px 0 0", fontWeight: "bold" }}>
+              Vote:
+            </p>
+            <Rating _id={_id} rating={rating}
+              onSaveRating={handleSaveRating} onRemoveRating={handleRemoveRating} />
+          </div>
           <h4>Description</h4>
           <p>{description}</p>
         </div>
