@@ -13,13 +13,16 @@
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.4",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "swagger-autogen": "^2.18.4",
+    "swagger-ui-express": "^4.3.0"
   },
   "scripts": {
     "start": "nodemon --ignore './public'",
     "client": "npm start --prefix ../client-app",
     "dev": "concurrently \"npm start\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "swagger-autogen": "node swagger/swagger.js"
   },
   "author": "",
   "license": "ISC"

@@ -1,11 +1,9 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
 const { Product } = require("../models/product");
 const { Rate } = require("../models/rate");
 
-/* Get all Products */
-
 router.get("/", async (req, res) => {
+  // #swagger.tags = ['Products']
   const products = await Product.find()
     .populate({ path: "category", select: "-__v" })
     .populate({ path: "owner", select: "username" })
@@ -14,15 +12,18 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/ratings/stats", async (req, res) => {
-  const ratings = await getRatings();
+  // #swagger.tags = ['Products', 'Ratings']
+  const ratings = await Rate.aggregate([
+    {
+      $group: {
+        _id: "$productId",
+        size: { $count: {} },
+        total: { $sum: "$rating" }
+      }
+    },
+  ]);
   return res.send(ratings);
 });
-
-function getRatings() {
-  return Rate.aggregate([
-    { $group: { _id: "$productId", size: { $count: {} }, total: { $sum: "$rating" } } },
-  ]);
-}
 
 // async function getProductRatingStats(productId) {
 //   const productRatings = (await Rate.aggregate([

@@ -14,4 +14,12 @@ const Like = mongoose.model(
   })
 );
 
-module.exports = { Like };
+const validateLike = (body) => {
+  const schema = Joi.object({
+    userId: Joi.objectId().required(),
+    productId: Joi.objectId().required(),
+  });
+  return schema.validate(body);
+};
+
+module.exports = { Like, validateLike };

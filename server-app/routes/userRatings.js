@@ -7,6 +7,7 @@ const { Rate, validateRating } = require("../models/rate");
 /* Get/Add/Remove ratings to Products */
 
 router.get("/", auth, async (req, res) => {
+  // #swagger.tags = ['Ratings', 'Users']
   const rating = await Rate.find({ userId: req.user._id }).select(
     "-userId -__v -_id"
   );
@@ -15,6 +16,7 @@ router.get("/", auth, async (req, res) => {
 
 // Rating by product id
 router.get("/:id", auth, async (req, res) => {
+  // #swagger.tags = ['Ratings', 'Users']
   const productId = req.params.id;
   const product = await Product.findById(productId);
   if (!product)
@@ -31,6 +33,7 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 router.put("/:id", auth, async (req, res) => {
+  // #swagger.tags = ['Ratings', 'Users']
   const { error } = validateRating(req.body);
   if (error) return res.status(400).send(error.message);
 
@@ -54,6 +57,7 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
+  // #swagger.tags = ['Ratings', 'Users']
   const productId = req.params.id;
 
   const product = await Product.findById(productId);

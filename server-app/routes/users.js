@@ -17,11 +17,13 @@ const validateCredentials = (body) => {
 };
 
 router.get("/", [auth, admin], async (req, res) => {
+  // #swagger.tags = ['Admin']
   const users = await User.find().select({ __v: 0 });
   res.send(users);
 });
 
 router.post("/login", async (req, res) => {
+  // #swagger.tags = ['Auth']
   const { error } = validateCredentials(req.body);
   if (error) return res.status(400).send(error.message);
 
@@ -38,6 +40,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
+  // #swagger.tags = ['Auth']
   const { error } = validateUser(req.body);
   if (error) return res.status(400).send(error.message);
 
