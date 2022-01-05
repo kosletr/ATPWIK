@@ -41,9 +41,13 @@ docker-compose yaml file comming soon...
 
 ![search filtering](screenshots/search_filtering.png)
 
-## Products Page
+## Products Details
 
 ![example product](screenshots/example_product.png)
+
+## Comments Section
+
+![comments section](screenshots/comments_section.png)
 
 ## Login Form
 

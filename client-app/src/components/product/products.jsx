@@ -137,9 +137,7 @@ export default function Products() {
             <ListCards
               data={pageProducts}
               cardDetails={["_id", "title", "price", "shortDesc", "imageURL", "liked", "rating", "owner"]}
-              extraProps={{
-                onLike: handleLike
-              }}
+              extraProps={{ onLike: handleLike }}
             />
           </div>
           <Pagination
@@ -148,7 +146,6 @@ export default function Products() {
             currentPage={currentPage}
             onPageChange={handlePageChange}
           />
-
         </div>
       </div>
     </>

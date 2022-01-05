@@ -43,7 +43,7 @@ function RatingStar(props) {
       hoverRating >= index || (!hoverRating && rating >= index)
         ? ""
         : "-o"
-    );
+    ) + (hoverEnabled ? " fa-3x" : "");
   }, [rating, hoverRating, index]);
 
   return hoverEnabled ?

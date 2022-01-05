@@ -5,7 +5,9 @@ const { Product } = require("../models/product");
 
 router.get("/:productId", async (req, res) => {
     // #swagger.tags = ['Products', 'Comments']
-    const comments = await Comment.find({ productId: req.params.productId });
+    const comments = await Comment
+        .find({ productId: req.params.productId })
+        .populate({ path: "userId", select: "username -_id" });
 
     return res.send(comments);
 });
@@ -31,35 +33,34 @@ router.post("/:productId", auth, async (req, res) => {
     return res.send(comment._id);
 });
 
-router.put("/", auth, async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
     // #swagger.tags = ['Products', 'Users', 'Comments']
     const { error } = validateComment(req.body);
     if (error) return res.status(400).send(error.message);
 
-    const { commentId, description } = req.body;
+    const { id: _id } = req.params;
+    const { description } = req.body;
 
-    const comment = await Comment.find({ _id: commentId, userId: req.user._id });
+    const comment = await Comment.find({ _id, userId: req.user._id });
     if (!comment)
         return res.status(403).send('Invalid comment id.')
 
-    await Comment.findOneAndUpdate({ _id: commentId }, { description });
-
-    return res.send(commentId);
+    await Comment.findOneAndUpdate({ _id }, { description });
+    return res.send(_id);
 });
 
-router.delete("/", auth, async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
     // #swagger.tags = ['Products', 'Users', 'Comments']
-    const { commentId } = req.body;
-    if (!commentId)
+    const { id: _id } = req.params;
+    if (!_id)
         return res.status(403).send('Invalid comment id.')
 
-    const comment = await Comment.find({ _id: commentId, userId: req.user._id });
+    const comment = await Comment.find({ _id, userId: req.user._id });
     if (!comment)
         return res.status(403).send('Invalid comment id.')
 
-    await Comment.findOneAndDelete({ _id: commentId });
-
-    return res.send(commentId);
+    await Comment.findOneAndDelete({ _id });
+    return res.send(_id);
 });
 
 module.exports = router;

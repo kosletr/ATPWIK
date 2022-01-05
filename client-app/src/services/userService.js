@@ -1,10 +1,11 @@
 import http from "./httpService";
 import config from "../config.json";
 
-const productsUrl = config.apiUrl + "/products/ratings/stats";
 const userProductsUrl = config.apiUrl + "/users/products";
 const userLikesUrl = config.apiUrl + "/users/likes";
 const userRatingsUrl = config.apiUrl + "/users/ratings";
+const commentsUrl = config.apiUrl + "/users/comments/";
+const ratingStatsUrl = config.apiUrl + "/products/ratings/stats";
 
 /* All Products of the current User */
 export function getUserProducts() {
@@ -67,5 +68,23 @@ export function removeRatingFromProduct(productId) {
 }
 
 export function getTotalRatings() {
-  return http.get(productsUrl);
+  return http.get(ratingStatsUrl);
+}
+
+export function getRatingStatsById(productId) {
+  return http.get(`${ratingStatsUrl}/${productId}`);
+}
+
+/* Comments */
+
+export function getCommentsByProductId(productId) {
+  return http.get(`${commentsUrl}/${productId}`);
+}
+
+export function updateCommentById(commentId, newComment) {
+  return http.put(`${commentsUrl}/${commentId}`, { description: newComment });
+}
+
+export function removeCommentById(commentId) {
+  return http.delete(`${commentsUrl}/${commentId}`);
 }

@@ -14,7 +14,7 @@ function getCategoryById(_id) {
 function saveCategory(category) {
   return category._id === ""
     ? http.post(categoryBaseUrl, { name: category.name })
-    : http.put(`${categoryBaseUrl}/${category._id}`, category);
+    : http.put(`${categoryBaseUrl}/${category._id}`, { name: category.name });
 }
 
 function removeCategory(_id) {

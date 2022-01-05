@@ -6,10 +6,12 @@ const Comment = mongoose.model(
     new mongoose.Schema({
         userId: {
             type: mongoose.Types.ObjectId,
+            ref: "user",
             required: true,
         },
         productId: {
             type: mongoose.Types.ObjectId,
+            ref: "product",
             required: true,
         },
         description: {
@@ -28,7 +30,6 @@ const Comment = mongoose.model(
 
 const validateComment = (body) => {
     const schema = Joi.object({
-        commentId: Joi.objectId().optional(),
         description: Joi.string().min(10).max(100).required(),
     });
     return schema.validate(body);
