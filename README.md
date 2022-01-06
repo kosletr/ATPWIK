@@ -1,6 +1,8 @@
 # MERN ATPWIK (MERN Application To Present What I Know)
 
-A Mongodb-Express-Reactjs-Nodejs full stack web application built using mostly pure CSS and additionally the bootstrap css framework along with font-awesome icons to demonstrate my full stack developement knowledge/skills. The app is still under developement.
+A Mongodb-Express-Reactjs-Nodejs full stack web application built using mostly pure CSS and additionally the bootstrap css framework along with font-awesome icons to demonstrate my full stack developement knowledge/skills. All of the database models, routes react components etc. are created by me from scratch, though some of them are inspired by or seen in tutorials/courses. The app is still under developement.
+
+![app-tour](screenshots/app.gif)
 
 # How to run the app
 
@@ -25,7 +27,7 @@ cd server-app
 npm run dev
 ```
 
-docker-compose yaml file comming soon...
+docker-compose.yaml and Dockerfiles are comming soon...
 
 # Screenshots of the app so far
 
