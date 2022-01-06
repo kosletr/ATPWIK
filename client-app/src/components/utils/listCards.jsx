@@ -43,10 +43,10 @@ function Card({
         <span className="badge badge-info" style={{ alignSelf: "center" }}>{owner.username}</span>
       </div>
       <div className="my-card-body">
-        <Link className="my-card-img" to={`/products/${_id}`}>
+        <Link  onClick={() => window.scrollTo(0, 0)} className="my-card-img" to={`/products/${_id}`}>
           <img className="my-card-img-top" src={imageURL} alt={title} />
         </Link>
-        <Link className="my-card-title" to={`/products/${_id}`}>{title}</Link>
+        <Link onClick={() => window.scrollTo(0, 0)} className="my-card-title" to={`/products/${_id}`}>{title}</Link>
         <div className="my-card-description">
           <p>{shortDesc}</p>
         </div>

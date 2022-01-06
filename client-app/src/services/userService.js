@@ -4,7 +4,7 @@ import config from "../config.json";
 const userProductsUrl = config.apiUrl + "/users/products";
 const userLikesUrl = config.apiUrl + "/users/likes";
 const userRatingsUrl = config.apiUrl + "/users/ratings";
-const commentsUrl = config.apiUrl + "/users/comments/";
+const commentsUrl = config.apiUrl + "/users/comments";
 const ratingStatsUrl = config.apiUrl + "/products/ratings/stats";
 
 /* All Products of the current User */
@@ -79,6 +79,10 @@ export function getRatingStatsById(productId) {
 
 export function getCommentsByProductId(productId) {
   return http.get(`${commentsUrl}/${productId}`);
+}
+
+export function createComment(productId, newComment) {
+  return http.post(`${commentsUrl}/${productId}`, { description: newComment })
 }
 
 export function updateCommentById(commentId, newComment) {

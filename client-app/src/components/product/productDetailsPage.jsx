@@ -27,12 +27,13 @@ export function ProductPage() {
   useEffect(() => {
     (async function () {
       const { data: receivedProduct } = await getUserProductById(params.id);
-      setProduct(receivedProduct);
-      if (authService.getCurrentUser() == null) return;
       const productId = receivedProduct._id;
+      const { data: receivedComments } = await getCommentsByProductId(productId);
+      setProduct(receivedProduct);
+      setComments(receivedComments);
+      if (authService.getCurrentUser() == null) return;
       const { data: { liked } } = await getLikeByProductId(productId);
       const { data: { rating } } = await getRatingByProductId(productId);
-      const { data: receivedComments } = await getCommentsByProductId(productId);
       const { data: ratingStats } = await getRatingStatsById(productId);
 
       setRatingChanged(false);
@@ -44,10 +45,8 @@ export function ProductPage() {
         ratingStats
       });
 
-      setComments(receivedComments);
-
     })();
-  }, [ratingChanged]);
+  }, [params.id, ratingChanged]);
 
   const handleLike = async ({ currentTarget: input }) => {
     if (authService.getCurrentUser() == null) {
@@ -111,7 +110,7 @@ export function ProductPage() {
               onClick={() => alert("Not implemented yet.")}
             > Buy now
             </button>
-            <p style={{ margin: "1rem 0" }}> <strong>Price:</strong> {parseFloat(price).toFixed(2)}€ </p>
+            <p style={{ margin: "1rem" }}> <strong>Price:</strong> {parseFloat(price).toFixed(2)}€ </p>
           </div>
         </div>
       </div>

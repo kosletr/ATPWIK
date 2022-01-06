@@ -7,7 +7,8 @@ router.get("/:productId", async (req, res) => {
     // #swagger.tags = ['Products', 'Comments']
     const comments = await Comment
         .find({ productId: req.params.productId })
-        .populate({ path: "userId", select: "username -_id" });
+        .populate({ path: "userId", select: "username -_id" })
+        .select("-__v");
 
     return res.send(comments);
 });
@@ -21,7 +22,7 @@ router.post("/:productId", auth, async (req, res) => {
     const { description } = req.body;
 
     const product = await Product.findOne({ _id: productId });
-    if (!product || req.user._id !== product.owner.toHexString())
+    if (!product)
         return res.status(403).send('Invalid product.')
 
     const comment = await new Comment({
@@ -30,7 +31,8 @@ router.post("/:productId", auth, async (req, res) => {
         userId: req.user._id,
     }).save();
 
-    return res.send(comment._id);
+    delete comment.___v;
+    return res.send(comment);
 });
 
 router.put("/:id", auth, async (req, res) => {

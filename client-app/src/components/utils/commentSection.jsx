@@ -1,17 +1,28 @@
 import { useEffect, useState } from "react";
-import { removeCommentById, updateCommentById } from "../../services/userService";
+import { useHistory, useParams } from "react-router-dom";
+import { createComment, removeCommentById, updateCommentById } from "../../services/userService";
+import Joi from "joi-browser";
 
 function CommentSection({ data, user }) {
 
-    console.log(data);
     const [comments, setComments] = useState([]);
-
+    const history = useHistory();
+    const { id: productId } = useParams();
 
     useEffect(() => setComments(data), [data]);
 
-    async function handleSave(commentId, newComment) {
+    async function handleSave(commentId, newDescription) {
+        if (newDescription === "") {
+            setComments(comments.filter(c => c.description !== ""));
+            return;
+        }
         try {
-            await updateCommentById(commentId, newComment);
+            if (commentId !== null)
+                await updateCommentById(commentId, newDescription);
+            else {
+                await createComment(productId, newDescription);
+                window.location.reload(true);
+            }
         } catch (ex) {
             console.log(ex.response.data);
         }
@@ -23,14 +34,37 @@ function CommentSection({ data, user }) {
     }
 
     async function handleCreate() {
-        alert('Not implemented yet.');
+        if (user == null) {
+            history.push("/login");
+            return;
+        }
+        const newComment = {
+            _id: null,
+            userId: { username: user.username },
+            productId,
+            description: "",
+            initEditState: true
+        };
+        setComments([...comments, newComment]);
     }
 
     return (
         <div className="comment-section">
-            {comments.map(c => (
-                <Comment key={c._id} data={c} user={user} handleSave={handleSave} handleDelete={handleDelete} />
-            ))}
+            {
+                comments.length === 0 &&
+                <p style={{ alignSelf: "flex-start", marginBottom: "0" }}>Be the first one to comment this product.</p>
+            }
+            {
+                comments.length !== 0 &&
+                comments.map(c => (
+                    <Comment
+                        key={c._id}
+                        data={c}
+                        user={user}
+                        handleSave={handleSave}
+                        handleDelete={handleDelete}
+                    />
+                ))}
             <button className="btn btn-primary" onClick={handleCreate} style={{ alignSelf: "flex-end" }}>
                 Add Comment
             </button>
@@ -40,14 +74,34 @@ function CommentSection({ data, user }) {
 
 function Comment({ data, user, handleSave, handleDelete }) {
     const [comment, setComment] = useState(data.description);
-    const [inEditState, setInEditState] = useState(false);
+    const [inEditState, setInEditState] = useState(data.initEditState);
+    const [errors, setErrors] = useState({});
+
+    function validateProperty({ name, value }) {
+        const schema = {
+            [name]: Joi.string().min(10).max(100).required().label("Comment")
+        };
+
+        const obj = { [name]: value };
+        const { error } = Joi.validate(obj, schema);
+        return error ? error.details[0].message : null;
+    };
 
     function handleChange({ currentTarget: input }) {
+        const errorMsg = validateProperty(input);
         setComment(input.value);
+        if (errorMsg) errors[input.name] = errorMsg;
+        else delete errors[input.name];
+
+        setErrors(errors);
     };
 
     function handleFocus({ currentTarget: input }) {
         input.setSelectionRange(comment.length, comment.length);
+    }
+
+    function handleCancel() {
+        window.location.reload(true);
     }
 
     async function toggleEditState() {
@@ -59,12 +113,20 @@ function Comment({ data, user, handleSave, handleDelete }) {
     const renderEditText = () => {
         return (inEditState)
             ? (
-                <textarea id={data._id} value={comment}
+                <textarea label="Comment" name="textarea" id={data._id} value={comment}
                     autoFocus onFocus={handleFocus}
                     onChange={handleChange}
                 />
             )
             : (<p style={{ padding: "1rem" }} >{comment}</p>);
+    }
+
+    function getDateTime() {
+        const dt = new Date(data.timestamp);
+        const format = num => ("0" + num).slice(-2);
+        const date = `${format(dt.getDate())}/${format(dt.getMonth() + 1)}/${dt.getFullYear()}`;
+        const time = `${format(dt.getHours())}:${format(dt.getMinutes())}`;
+        return `${date} ${time}`;
     }
 
     return (
@@ -74,18 +136,37 @@ function Comment({ data, user, handleSave, handleDelete }) {
                     {renderEditText(comment)}
                 </div>
                 <div className="comment-footer">
-                    <span>{data.userId.username}</span>
                     {
-                        user.username === data.userId.username &&
+                        <div>
+                            <span style={{ color: "yellow", paddingRight: "0.5rem" }}>{data.userId.username}</span>
+                            <span>{data.timestamp && getDateTime()}</span>
+                        </div>
+                    }
+                    {
+                        user && user.username === data.userId.username &&
                         <div className="comment-options">
-                            <button onClick={toggleEditState}>
+                            <button
+                                disabled={errors["textarea"]}
+                                onClick={toggleEditState}>
                                 {!inEditState ? "Edit" : "Save"}
                             </button>
-                            <button onClick={() => handleDelete(data._id)}>Delete</button>
+                            {
+                                !inEditState &&
+                                <button
+                                    disabled={errors["textarea"]}
+                                    onClick={() => handleDelete(data._id)}>
+                                    Delete
+                                </button>
+                            }
+                            {
+                                inEditState &&
+                                <button onClick={() => handleCancel(data._id)}>Cancel</button>
+                            }
                         </div>
                     }
                 </div>
             </div>
+            {errors["textarea"] && <div className="alert alert-danger">{errors["textarea"]}</div>}
         </div>
     )
 }
