@@ -29,12 +29,17 @@ export function ProductPage() {
       const { data: receivedProduct } = await getUserProductById(params.id);
       const productId = receivedProduct._id;
       const { data: receivedComments } = await getCommentsByProductId(productId);
-      setProduct(receivedProduct);
+      const { data: ratingStats } = await getRatingStatsById(productId);
       setComments(receivedComments);
+      
+      setProduct({
+        ...receivedProduct,
+        ratingStats
+      });
+
       if (authService.getCurrentUser() == null) return;
       const { data: { liked } } = await getLikeByProductId(productId);
       const { data: { rating } } = await getRatingByProductId(productId);
-      const { data: ratingStats } = await getRatingStatsById(productId);
 
       setRatingChanged(false);
 
