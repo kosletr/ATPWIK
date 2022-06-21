@@ -1,10 +1,9 @@
 const router = require("express").Router();
-const { validateComment, Comment } = require("../models/comment");
-const auth = require("../middleware/auth");
-const { Product } = require("../models/product");
+const { validateComment, Comment } = require("../../models/comment");
+const auth = require("../../middleware/auth");
+const { Product } = require("../../models/product");
 
 router.get("/:productId", async (req, res) => {
-    // #swagger.tags = ['Products', 'Comments']
     const comments = await Comment
         .find({ productId: req.params.productId })
         .populate({ path: "userId", select: "username -_id" })
@@ -14,7 +13,6 @@ router.get("/:productId", async (req, res) => {
 });
 
 router.post("/:productId", auth, async (req, res) => {
-    // #swagger.tags = ['Products', 'Users', 'Comments']
     const { error } = validateComment(req.body);
     if (error) return res.status(400).send(error.message);
 
@@ -36,7 +34,6 @@ router.post("/:productId", auth, async (req, res) => {
 });
 
 router.put("/:id", auth, async (req, res) => {
-    // #swagger.tags = ['Products', 'Users', 'Comments']
     const { error } = validateComment(req.body);
     if (error) return res.status(400).send(error.message);
 
@@ -52,7 +49,6 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
-    // #swagger.tags = ['Products', 'Users', 'Comments']
     const { id: _id } = req.params;
     if (!_id)
         return res.status(403).send('Invalid comment id.')

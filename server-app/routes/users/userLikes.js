@@ -1,20 +1,18 @@
 const router = require("express").Router();
-const { Product } = require("../models/product");
-const auth = require("../middleware/auth");
-const admin = require("../middleware/admin");
-const { Like, validateLike } = require("../models/like");
+const { Product } = require("../../models/product");
+const auth = require("../../middleware/auth");
+const admin = require("../../middleware/admin");
+const { Like, validateLike } = require("../../models/like");
 
 /* Get/Add/Remove Products from/to favourites */
 
 router.get("/", auth, async (req, res) => {
-  // #swagger.tags = ['Likes','Users']
   const liked = await Like.find({ userId: req.user._id }).distinct("productId");
 
   res.send(liked);
 });
 
 router.get("/:id", auth, async (req, res) => {
-  // #swagger.tags = ['Likes','Users']
   const productId = req.params.id;
 
   const product = await Product.findById(productId);
@@ -31,7 +29,6 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 router.post("/:id", auth, async (req, res) => {
-  // #swagger.tags = ['Likes','Users']
   const productId = req.params.id;
 
   const product = await Product.findById(productId);
@@ -55,7 +52,6 @@ router.post("/:id", auth, async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
-  // #swagger.tags = ['Likes','Users']
   const productId = req.params.id;
 
   const product = await Product.findById(productId);

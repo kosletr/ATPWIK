@@ -1,22 +1,19 @@
 const router = require("express").Router();
-const { Category, validateCategory } = require("../models/category");
-const auth = require("../middleware/auth");
-const admin = require("../middleware/admin");
+const { Category, validateCategory } = require("../../models/category");
+const auth = require("../../middleware/auth");
+const admin = require("../../middleware/admin");
 
 router.get("/", async (req, res) => {
-  // #swagger.tags = ['Categories']
   const categories = await Category.find().select("-__v");
   res.send(categories);
 });
 
 router.get("/:id", async (req, res) => {
-  // #swagger.tags = ['Categories']
   const category = await Category.find({ _id: req.params.id }).select("-__v");
   res.send(category);
 });
 
 router.post("/", [auth, admin], async (req, res) => {
-  // #swagger.tags = ['Categories', 'Admin']
   const { error } = validateCategory(req.body);
   if (error) return res.status(400).send(error.message);
 
@@ -30,7 +27,6 @@ router.post("/", [auth, admin], async (req, res) => {
 });
 
 router.put("/:id", [auth, admin], async (req, res) => {
-  // #swagger.tags = ['Categories', 'Admin']
   // const { error } = validateCategory(req.body);
   // if (error) return res.status(400).send(error.message);
 
@@ -44,7 +40,6 @@ router.put("/:id", [auth, admin], async (req, res) => {
 });
 
 router.delete("/:id", [auth, admin], async (req, res) => {
-  // #swagger.tags = ['Categories','Admin']
   const { id } = req.params;
   const category = await Category.findOneAndDelete({ _id: id });
   if (!category) return res.status(400).send("Category does not exist.");

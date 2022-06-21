@@ -1,12 +1,11 @@
 const router = require("express").Router();
-const { Product, validateProduct } = require("../models/product");
-const { Category } = require("../models/category");
-const auth = require("../middleware/auth");
-const admin = require("../middleware/admin");
+const { Product, validateProduct } = require("../../models/product");
+const { Category } = require("../../models/category");
+const auth = require("../../middleware/auth");
+const admin = require("../../middleware/admin");
 
 /* Get all user's products */
 router.get("/", auth, async (req, res) => {
-  // #swagger.tags = ['Products', 'Users']
   const products = await Product.find({ owner: req.user._id })
     .populate({ path: "category", select: "-__v" })
     .populate({ path: "owner", select: "username" })
@@ -16,7 +15,6 @@ router.get("/", auth, async (req, res) => {
 
 /* Get/Add/Update/Remove a user's product */
 router.get("/:id", async (req, res) => {
-  // #swagger.tags = ['Products', 'Users']
   const productId = req.params.id;
 
   const product = await Product.findById(productId)
@@ -29,7 +27,6 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", auth, async (req, res) => {
-  // #swagger.tags = ['Products', 'Users']
   const { error } = validateProduct(req.body);
   if (error) return res.status(400).send(error.message);
 
@@ -42,7 +39,6 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.put("/:id", auth, async (req, res) => {
-  // #swagger.tags = ['Products', 'Users']
   const { error } = validateProduct(req.body);
   if (error) return res.status(400).send(error.message);
 
@@ -75,7 +71,6 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
-  // #swagger.tags = ['Products', 'Users']
   const productId = req.params.id;
 
   const product = await Product.findById(productId);

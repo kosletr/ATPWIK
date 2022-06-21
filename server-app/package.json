@@ -1,29 +1,27 @@
 {
-  "name": "mern-app",
+  "name": "atpwik",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Mongodb-Express-Reactjs-Nodejs full stack web application built using mostly pure CSS and additionally the bootstrap css framework along with font-awesome icons to demonstrate my full stack developement knowledge/skills. All of the database models, routes react components etc. are created by me from scratch, though some of them are inspired by or seen in tutorials/courses. The app is still under developement.",
   "main": "index.js",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "concurrently": "^7.0.0",
     "config": "^3.3.7",
     "cors": "^2.8.5",
-    "express": "^4.17.2",
-    "joi": "^17.5.0",
+    "express": "^4.18.1",
+    "joi": "^17.6.0",
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.7",
-    "nodemon": "^2.0.15",
-    "swagger-autogen": "^2.18.8",
-    "swagger-ui-express": "^4.3.0"
+    "mongoose": "^6.4.0",
+    "nodemon": "^2.0.16"
   },
   "scripts": {
-    "start": "nodemon --ignore './public'",
-    "client": "npm start --prefix ../client-app",
-    "dev": "concurrently \"npm start\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "swagger-autogen": "node swagger/swagger.js"
+    "start": "nodemon index.js",
+    "test": "jest --watchAll --verbose"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Konstantinos Letros",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^28.1.1",
+    "supertest": "^6.2.3"
+  }
 }
