@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Sidebar from "../utils/sidebar";
@@ -67,24 +69,24 @@ export default function Products() {
     await (!products[index].liked)
       ? addLikeToProduct(productId)
       : removeLikeFromProduct(productId);
-  };
+  }
 
   /* Pagination Component */
 
   function handlePageChange(page) {
     setCurrentPage(page);
-  };
+  }
 
   function handleCategorySelect(category) {
     setSelectedCategory(category);
     setSearchQuery("");
     setCurrentPage(1);
-  };
+  }
 
   function handleSearch(query) {
     setSearchQuery(query);
     setCurrentPage(1);
-  };
+  }
 
   function getPagedData() {
     const allProducts = products;
@@ -104,7 +106,7 @@ export default function Products() {
       data: paginate(filtered, currentPage, pageSize),
       searchList
     };
-  };
+  }
 
 
   if (products.length === 0)

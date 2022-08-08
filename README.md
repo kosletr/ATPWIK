@@ -24,14 +24,14 @@ cd client-app && npm i && cd ..
 
 ```bash
 cd server-app
-npm start
+npm run dev
 ```
 
 5. Start the client app, by running:
 
 ```bash
 cd client-app
-npm start
+npm run dev
 ```
 
 docker-compose.yaml and Dockerfiles are comming soon...

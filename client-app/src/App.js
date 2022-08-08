@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { ToastContainer } from "react-toastify";
 import { Switch, Route, Redirect } from "react-router-dom";
 import LoginForm from "./components/auth/loginForm";
