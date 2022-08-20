@@ -2,10 +2,12 @@ const express = require("express");
 const app = express();
 const config = require("config");
 
-require("./startup/cors")(app);
-require("./startup/routes")(app);
-require("./startup/db")();
-require("./startup/validation")();
+require("./src/startup/cors")(app);
+require("./src/startup/routes")(app);
+require("./src/startup/db").connect();
+require("./src/startup/validation")();
 
 const port = process.env.PORT || config.get("port");
-app.listen(port, () => console.log(`Server on port ${port}.`));
+const server = app.listen(port, () => console.log(`Server on port ${port}.`));
+
+module.exports = server;

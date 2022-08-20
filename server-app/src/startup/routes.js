@@ -12,4 +12,4 @@ module.exports = (app) => {
     app.use("/api/users/ratings", require("../routes/users/userRatings"));
     app.use("/api/users/comments", require("../routes/products/comments"));
     app.use("/api/users/products", require("../routes/users/userProducts"));
-}
+};

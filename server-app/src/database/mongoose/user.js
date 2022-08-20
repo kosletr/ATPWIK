@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
@@ -42,30 +41,32 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.generateAuthToken = function () {
-  return jwt.sign(
-    {
-      _id: this._id,
-      username: this.username,
-      firstname: this.firstname,
-      lastname: this.lastname,
-      isAdmin: this.isAdmin,
-    },
-    config.get("jwtPrivateKey")
-  );
+  const jwtPayload = {
+    _id: this._id,
+    username: this.username,
+    firstname: this.firstname,
+    lastname: this.lastname,
+    isAdmin: this.isAdmin,
+  };
+  return jwt.sign(jwtPayload, config.get("jwtPrivateKey"));
 };
 
 const User = mongoose.model("user", userSchema);
 
-const validateUser = (body) => {
-  const user = Joi.object({
-    firstname: Joi.string().min(2).max(50).required(),
-    lastname: Joi.string().min(2).max(50).required(),
-    username: Joi.string().min(2).max(50).required(),
-    email: Joi.string().min(4).max(50).required().email(),
-    password: Joi.string().min(6).max(50).required(),
-  });
+function getAllUsers() {
+  return User.find().select({ __v: 0 });
+}
 
-  return user.validate(body);
+function getUserByUsername(username) {
+  return User.findOne({ username });
+}
+
+function saveNewUser(userInfo) {
+  return new User(userInfo).save();
+}
+
+module.exports = {
+  getAllUsers,
+  getUserByUsername,
+  saveNewUser
 };
-
-module.exports = { User, validateUser };
